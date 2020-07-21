@@ -20,14 +20,14 @@ public class InGameMenuManager : MonoBehaviour
     [Tooltip("GameObject for the controls")]
     public GameObject controlImage;
 
-    PlayerInputHandler m_PlayerInputsHandler;
+    IS_PlayerInputHandler m_PlayerInputsHandler;
     Health m_PlayerHealth;
     FramerateCounter m_FramerateCounter;
 
     void Start()
     {
-        m_PlayerInputsHandler = FindObjectOfType<PlayerInputHandler>();
-        DebugUtility.HandleErrorIfNullFindObject<PlayerInputHandler, InGameMenuManager>(m_PlayerInputsHandler, this);
+        m_PlayerInputsHandler = FindObjectOfType<IS_PlayerInputHandler>();
+        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerInputHandler, InGameMenuManager>(m_PlayerInputsHandler, this);
 
         m_PlayerHealth = m_PlayerInputsHandler.GetComponent<Health>();
         DebugUtility.HandleErrorIfNullGetComponent<Health, InGameMenuManager>(m_PlayerHealth, this, gameObject);
@@ -53,7 +53,7 @@ public class InGameMenuManager : MonoBehaviour
     private void Update()
     {
         // Lock cursor when clicking outside of menu
-        if (!menuRoot.activeSelf && Input.GetMouseButtonDown(0))
+        if (!menuRoot.activeSelf)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

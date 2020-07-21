@@ -22,8 +22,8 @@ public class ObjectiveReachPoint : MonoBehaviour
         if (m_Objective.isCompleted)
             return;
 
-        var player = other.GetComponent<PlayerCharacterController>();
-        // test if the other collider contains a PlayerCharacterController, then complete
+        var player = other.GetComponent<IS_PlayerCharacterController>();
+        // test if the other collider contains a IS_PlayerCharacterController, then complete
         if (player != null)
         {
             m_Objective.CompleteObjective(string.Empty, string.Empty, "Objective complete : " + m_Objective.title);

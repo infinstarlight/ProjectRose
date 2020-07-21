@@ -18,7 +18,7 @@ public class ObjectivePickupItem : MonoBehaviour
         m_Pickup.onPick += OnPickup;
     }
 
-    void OnPickup(PlayerCharacterController player)
+    void OnPickup(IS_PlayerCharacterController player)
     {
         if (m_Objective.isCompleted)
             return;

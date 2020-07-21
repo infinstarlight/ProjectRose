@@ -13,7 +13,7 @@ public class JetpackPickup : MonoBehaviour
         m_Pickup.onPick += OnPicked;
     }
 
-    void OnPicked(PlayerCharacterController byPlayer)
+    void OnPicked(IS_PlayerCharacterController byPlayer)
     {
         var jetpack = byPlayer.GetComponent<Jetpack>();
         if (!jetpack)

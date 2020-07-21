@@ -12,8 +12,8 @@ public class StanceHUD : MonoBehaviour
 
     private void Start()
     {
-        PlayerCharacterController character = FindObjectOfType<PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, StanceHUD>(character, this);
+        IS_PlayerCharacterController character = FindObjectOfType<IS_PlayerCharacterController>();
+        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, StanceHUD>(character, this);
         character.onStanceChanged += OnStanceChanged;
 
         OnStanceChanged(character.isCrouching);

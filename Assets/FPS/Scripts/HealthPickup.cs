@@ -17,7 +17,7 @@ public class HealthPickup : MonoBehaviour
         m_Pickup.onPick += OnPicked;
     }
 
-    void OnPicked(PlayerCharacterController player)
+    void OnPicked(IS_PlayerCharacterController player)
     {
         Health playerHealth = player.GetComponent<Health>();
         if (playerHealth && playerHealth.canPickup())

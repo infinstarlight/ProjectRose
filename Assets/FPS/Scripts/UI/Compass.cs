@@ -21,9 +21,9 @@ public class Compass : MonoBehaviour
 
     void Awake()
     {
-        PlayerCharacterController playerCharacterController = FindObjectOfType<PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, Compass>(playerCharacterController, this);
-        m_PlayerTransform = playerCharacterController.transform;
+        IS_PlayerCharacterController IS_PlayerCharacterController = FindObjectOfType<IS_PlayerCharacterController>();
+        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, Compass>(IS_PlayerCharacterController, this);
+        m_PlayerTransform = IS_PlayerCharacterController.transform;
 
         m_WidthMultiplier = compasRect.rect.width / visibilityAngle;
         m_heightOffset = -compasRect.rect.height / 2;

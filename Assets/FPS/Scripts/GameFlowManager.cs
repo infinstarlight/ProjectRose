@@ -28,7 +28,7 @@ public class GameFlowManager : MonoBehaviour
 
     public bool gameIsEnding { get; private set; }
 
-    PlayerCharacterController m_Player;
+    IS_PlayerCharacterController m_Player;
     NotificationHUDManager m_NotificationHUDManager;
     ObjectiveManager m_ObjectiveManager;
     float m_TimeLoadEndGameScene;
@@ -36,8 +36,8 @@ public class GameFlowManager : MonoBehaviour
 
     void Start()
     {
-        m_Player = FindObjectOfType<PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, GameFlowManager>(m_Player, this);
+        m_Player = FindObjectOfType<IS_PlayerCharacterController>();
+        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, GameFlowManager>(m_Player, this);
 
         m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
 		DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);

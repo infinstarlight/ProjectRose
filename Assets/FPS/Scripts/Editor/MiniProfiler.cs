@@ -220,7 +220,7 @@ public class MiniProfiler : EditorWindow
 
             if(!willBeCombined)
             {
-                if (!(mf.GetComponentInParent<PlayerCharacterController>() ||
+                if (!(mf.GetComponentInParent<IS_PlayerCharacterController>() ||
                     mf.GetComponentInParent<EnemyController>() ||
                     mf.GetComponentInParent<Pickup>() ||
                     mf.GetComponentInParent<Objective>()))

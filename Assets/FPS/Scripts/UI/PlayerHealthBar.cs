@@ -12,11 +12,11 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void Start()
     {
-        PlayerCharacterController playerCharacterController = GameObject.FindObjectOfType<PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, PlayerHealthBar>(playerCharacterController, this);
+        IS_PlayerCharacterController IS_PlayerCharacterController = GameObject.FindObjectOfType<IS_PlayerCharacterController>();
+        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, PlayerHealthBar>(IS_PlayerCharacterController, this);
 
-        m_PlayerHealth = playerCharacterController.GetComponent<Health>();
-        DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerHealthBar>(m_PlayerHealth, this, playerCharacterController.gameObject);
+        m_PlayerHealth = IS_PlayerCharacterController.GetComponent<Health>();
+        DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerHealthBar>(m_PlayerHealth, this, IS_PlayerCharacterController.gameObject);
     }
 
     void Update()

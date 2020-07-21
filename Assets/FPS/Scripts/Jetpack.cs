@@ -34,15 +34,15 @@ public class Jetpack : MonoBehaviour
     public AudioClip jetpackSFX;
 
     bool m_CanUseJetpack;
-    PlayerCharacterController m_PlayerCharacterController;
-    PlayerInputHandler m_InputHandler;
+    IS_PlayerCharacterController m_IS_PlayerCharacterController;
+    IS_PlayerInputHandler m_InputHandler;
     float m_LastTimeOfUse;
 
     // stored ratio for jetpack resource (1 is full, 0 is empty)
     public float currentFillRatio { get; private set; }
     public bool isJetpackUnlocked { get; private set; }
 
-    public bool isPlayergrounded() => m_PlayerCharacterController.isGrounded;
+    public bool isPlayergrounded() => m_IS_PlayerCharacterController.isGrounded;
 
     public UnityAction<bool> onUnlockJetpack;
 
@@ -50,11 +50,11 @@ public class Jetpack : MonoBehaviour
     {
         isJetpackUnlocked = isJetpackUnlockedAtStart;
 
-        m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullGetComponent<PlayerCharacterController, Jetpack>(m_PlayerCharacterController, this, gameObject);
+        m_IS_PlayerCharacterController = GetComponent<IS_PlayerCharacterController>();
+        DebugUtility.HandleErrorIfNullGetComponent<IS_PlayerCharacterController, Jetpack>(m_IS_PlayerCharacterController, this, gameObject);
 
-        m_InputHandler = GetComponent<PlayerInputHandler>();
-        DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, Jetpack>(m_InputHandler, this, gameObject);
+        m_InputHandler = GetComponent<IS_PlayerInputHandler>();
+        DebugUtility.HandleErrorIfNullGetComponent<IS_PlayerInputHandler, Jetpack>(m_InputHandler, this, gameObject);
 
         currentFillRatio = 1f;
 
@@ -69,7 +69,7 @@ public class Jetpack : MonoBehaviour
         {
             m_CanUseJetpack = false;
         }
-        else if (!m_PlayerCharacterController.hasJumpedThisFrame && m_InputHandler.GetJumpInputDown())
+        else if (!m_IS_PlayerCharacterController.hasJumpedThisFrame && m_InputHandler.GetJumpInputDown())
         {
             m_CanUseJetpack = true;
         }
@@ -84,16 +84,16 @@ public class Jetpack : MonoBehaviour
             float totalAcceleration = jetpackAcceleration;
 
             // cancel out gravity
-            totalAcceleration += m_PlayerCharacterController.gravityDownForce;
+            totalAcceleration += m_IS_PlayerCharacterController.gravityDownForce;
 
-            if (m_PlayerCharacterController.characterVelocity.y < 0f)
+            if (m_IS_PlayerCharacterController.characterVelocity.y < 0f)
             {
                 // handle making the jetpack compensate for character's downward velocity with bonus acceleration
-                totalAcceleration += ((-m_PlayerCharacterController.characterVelocity.y / Time.deltaTime) * jetpackDownwardVelocityCancelingFactor);
+                totalAcceleration += ((-m_IS_PlayerCharacterController.characterVelocity.y / Time.deltaTime) * jetpackDownwardVelocityCancelingFactor);
             }
 
             // apply the acceleration to character's velocity
-            m_PlayerCharacterController.characterVelocity += Vector3.up * totalAcceleration * Time.deltaTime;
+            m_IS_PlayerCharacterController.characterVelocity += Vector3.up * totalAcceleration * Time.deltaTime;
 
             // consume fuel
             currentFillRatio = currentFillRatio - (Time.deltaTime / consumeDuration);
@@ -112,7 +112,7 @@ public class Jetpack : MonoBehaviour
             // refill the meter over time
             if (isJetpackUnlocked && Time.time - m_LastTimeOfUse >= refillDelay)
             {
-                float refillRate = 1 / (m_PlayerCharacterController.isGrounded ? refillDurationGrounded : refillDurationInTheAir);
+                float refillRate = 1 / (m_IS_PlayerCharacterController.isGrounded ? refillDurationGrounded : refillDurationInTheAir);
                 currentFillRatio = currentFillRatio + Time.deltaTime * refillRate;
             }
 

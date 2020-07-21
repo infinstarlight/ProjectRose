@@ -329,7 +329,7 @@ public class EnemyController : MonoBehaviour
     void OnDamaged(float damage, GameObject damageSource)
     {
         // test if the damage source is the player
-        if (damageSource && damageSource.GetComponent<PlayerCharacterController>())
+        if (damageSource && damageSource.GetComponent<IS_PlayerCharacterController>())
         {
             // pursue the player
             m_DetectionModule.OnDamaged(damageSource);

@@ -8,24 +8,24 @@ public class WeaponHUDManager : MonoBehaviour
     [Tooltip("Prefab for displaying weapon ammo")]
     public GameObject ammoCounterPrefab;
 
-    PlayerWeaponsManager m_PlayerWeaponsManager;
+    IS_PlayerWeaponsManager m_IS_PlayerWeaponsManager;
     List<AmmoCounter> m_AmmoCounters = new List<AmmoCounter>();
 
     void Start()
     {
-        m_PlayerWeaponsManager = FindObjectOfType<PlayerWeaponsManager>();
-        DebugUtility.HandleErrorIfNullFindObject<PlayerWeaponsManager, WeaponHUDManager>(m_PlayerWeaponsManager, this);
+        m_IS_PlayerWeaponsManager = FindObjectOfType<IS_PlayerWeaponsManager>();
+        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerWeaponsManager, WeaponHUDManager>(m_IS_PlayerWeaponsManager, this);
 
-        WeaponController activeWeapon = m_PlayerWeaponsManager.GetActiveWeapon();
+        WeaponController activeWeapon = m_IS_PlayerWeaponsManager.GetActiveWeapon();
         if (activeWeapon)
         {
-            AddWeapon(activeWeapon, m_PlayerWeaponsManager.activeWeaponIndex);
+            AddWeapon(activeWeapon, m_IS_PlayerWeaponsManager.activeWeaponIndex);
             ChangeWeapon(activeWeapon);
         }
 
-        m_PlayerWeaponsManager.onAddedWeapon += AddWeapon;
-        m_PlayerWeaponsManager.onRemovedWeapon += RemoveWeapon;
-        m_PlayerWeaponsManager.onSwitchedToWeapon += ChangeWeapon;
+        m_IS_PlayerWeaponsManager.onAddedWeapon += AddWeapon;
+        m_IS_PlayerWeaponsManager.onRemovedWeapon += RemoveWeapon;
+        m_IS_PlayerWeaponsManager.onSwitchedToWeapon += ChangeWeapon;
     }
 
     void AddWeapon(WeaponController newWeapon, int weaponIndex)

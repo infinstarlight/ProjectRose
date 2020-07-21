@@ -14,13 +14,13 @@ public class PlayerInputHandler : MonoBehaviour
     public bool invertXAxis = false;
 
     GameFlowManager m_GameFlowManager;
-    PlayerCharacterController m_PlayerCharacterController;
+    IS_PlayerCharacterController m_IS_PlayerCharacterController;
     bool m_FireInputWasHeld;
 
     private void Start()
     {
-        m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullGetComponent<PlayerCharacterController, PlayerInputHandler>(m_PlayerCharacterController, this, gameObject);
+        m_IS_PlayerCharacterController = GetComponent<IS_PlayerCharacterController>();
+        DebugUtility.HandleErrorIfNullGetComponent<IS_PlayerCharacterController, PlayerInputHandler>(m_IS_PlayerCharacterController, this, gameObject);
         m_GameFlowManager = FindObjectOfType<GameFlowManager>();
         DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, PlayerInputHandler>(m_GameFlowManager, this);
 

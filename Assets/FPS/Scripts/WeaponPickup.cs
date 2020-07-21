@@ -24,17 +24,17 @@ public class WeaponPickup : MonoBehaviour
         }
     }
 
-    void OnPicked(PlayerCharacterController byPlayer)
+    void OnPicked(IS_PlayerCharacterController byPlayer)
     {
-        PlayerWeaponsManager playerWeaponsManager = byPlayer.GetComponent<PlayerWeaponsManager>();
-        if (playerWeaponsManager)
+        IS_PlayerWeaponsManager IS_PlayerWeaponsManager = byPlayer.GetComponent<IS_PlayerWeaponsManager>();
+        if (IS_PlayerWeaponsManager)
         {
-            if (playerWeaponsManager.AddWeapon(weaponPrefab))
+            if (IS_PlayerWeaponsManager.AddWeapon(weaponPrefab))
             {
                 // Handle auto-switching to weapon if no weapons currently
-                if (playerWeaponsManager.GetActiveWeapon() == null)
+                if (IS_PlayerWeaponsManager.GetActiveWeapon() == null)
                 {
-                    playerWeaponsManager.SwitchWeapon(true);
+                    IS_PlayerWeaponsManager.SwitchWeapon(true);
                 }
 
                 m_Pickup.PlayPickupFeedback();

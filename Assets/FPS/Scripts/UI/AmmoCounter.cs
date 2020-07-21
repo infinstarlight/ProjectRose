@@ -32,7 +32,7 @@ public class AmmoCounter : MonoBehaviour
 
     public int weaponCounterIndex { get; set; }
 
-    PlayerWeaponsManager m_PlayerWeaponsManager;
+    IS_PlayerWeaponsManager m_IS_PlayerWeaponsManager;
     WeaponController m_Weapon;
 
     public void Initialize(WeaponController weapon, int weaponIndex)
@@ -41,8 +41,8 @@ public class AmmoCounter : MonoBehaviour
         weaponCounterIndex = weaponIndex;
         weaponImage.sprite = weapon.weaponIcon;
 
-        m_PlayerWeaponsManager = FindObjectOfType<PlayerWeaponsManager>();
-        DebugUtility.HandleErrorIfNullFindObject<PlayerWeaponsManager, AmmoCounter>(m_PlayerWeaponsManager, this);
+        m_IS_PlayerWeaponsManager = FindObjectOfType<IS_PlayerWeaponsManager>();
+        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerWeaponsManager, AmmoCounter>(m_IS_PlayerWeaponsManager, this);
 
         weaponIndexText.text = (weaponCounterIndex + 1).ToString();
 
@@ -54,7 +54,7 @@ public class AmmoCounter : MonoBehaviour
         float currenFillRatio = m_Weapon.currentAmmoRatio;
         ammoFillImage.fillAmount = Mathf.Lerp(ammoFillImage.fillAmount, currenFillRatio, Time.deltaTime * ammoFillMovementSharpness);
 
-        bool isActiveWeapon = m_Weapon == m_PlayerWeaponsManager.GetActiveWeapon();
+        bool isActiveWeapon = m_Weapon == m_IS_PlayerWeaponsManager.GetActiveWeapon();
 
         canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha , isActiveWeapon ? 1f : unselectedOpacity, Time.deltaTime * 10);
         transform.localScale = Vector3.Lerp(transform.localScale, isActiveWeapon ? Vector3.one : unselectedScale, Time.deltaTime * 10);

@@ -16,7 +16,7 @@ public class Pickup : MonoBehaviour
     [Tooltip("VFX spawned on pickup")]
     public GameObject pickupVFXPrefab;
 
-    public UnityAction<PlayerCharacterController> onPick;
+    public UnityAction<IS_PlayerCharacterController> onPick;
     public Rigidbody pickupRigidbody { get; private set; }
 
     Collider m_Collider;
@@ -50,7 +50,7 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerCharacterController pickingPlayer = other.GetComponent<PlayerCharacterController>();
+        IS_PlayerCharacterController pickingPlayer = other.GetComponent<IS_PlayerCharacterController>();
 
         if (pickingPlayer != null)
         {

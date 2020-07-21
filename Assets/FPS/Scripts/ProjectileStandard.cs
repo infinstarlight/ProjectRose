@@ -78,14 +78,14 @@ public class ProjectileStandard : MonoBehaviour
         m_IgnoredColliders.AddRange(ownerColliders);
 
         // Handle case of player shooting (make projectiles not go through walls, and remember center-of-screen trajectory)
-        PlayerWeaponsManager playerWeaponsManager = m_ProjectileBase.owner.GetComponent<PlayerWeaponsManager>();
-        if(playerWeaponsManager)
+        IS_PlayerWeaponsManager IS_PlayerWeaponsManager = m_ProjectileBase.owner.GetComponent<IS_PlayerWeaponsManager>();
+        if(IS_PlayerWeaponsManager)
         {
             m_HasTrajectoryOverride = true;
 
-            Vector3 cameraToMuzzle = (m_ProjectileBase.initialPosition - playerWeaponsManager.weaponCamera.transform.position);
+            Vector3 cameraToMuzzle = (m_ProjectileBase.initialPosition - IS_PlayerWeaponsManager.weaponCamera.transform.position);
 
-            m_TrajectoryCorrectionVector = Vector3.ProjectOnPlane(-cameraToMuzzle, playerWeaponsManager.weaponCamera.transform.forward);
+            m_TrajectoryCorrectionVector = Vector3.ProjectOnPlane(-cameraToMuzzle, IS_PlayerWeaponsManager.weaponCamera.transform.forward);
             if (trajectoryCorrectionDistance == 0)
             {
                 transform.position += m_TrajectoryCorrectionVector;
@@ -96,7 +96,7 @@ public class ProjectileStandard : MonoBehaviour
                 m_HasTrajectoryOverride = false;
             }
             
-            if (Physics.Raycast(playerWeaponsManager.weaponCamera.transform.position, cameraToMuzzle.normalized, out RaycastHit hit, cameraToMuzzle.magnitude, hittableLayers, k_TriggerInteraction))
+            if (Physics.Raycast(IS_PlayerWeaponsManager.weaponCamera.transform.position, cameraToMuzzle.normalized, out RaycastHit hit, cameraToMuzzle.magnitude, hittableLayers, k_TriggerInteraction))
             {
                 if (IsHitValid(hit))
                 {

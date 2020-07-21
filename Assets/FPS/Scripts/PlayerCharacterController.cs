@@ -105,7 +105,7 @@ public class PlayerCharacterController : MonoBehaviour
     Health m_Health;
     PlayerInputHandler m_InputHandler;
     CharacterController m_Controller;
-    PlayerWeaponsManager m_WeaponsManager;
+    IS_PlayerWeaponsManager m_WeaponsManager;
     Actor m_Actor;
     Vector3 m_GroundNormal;
     Vector3 m_CharacterVelocity;
@@ -122,19 +122,19 @@ public class PlayerCharacterController : MonoBehaviour
     {
         // fetch components on the same gameObject
         m_Controller = GetComponent<CharacterController>();
-        DebugUtility.HandleErrorIfNullGetComponent<CharacterController, PlayerCharacterController>(m_Controller, this, gameObject);
+        DebugUtility.HandleErrorIfNullGetComponent<CharacterController, IS_PlayerCharacterController>(m_Controller, this, gameObject);
 
         m_InputHandler = GetComponent<PlayerInputHandler>();
-        DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, PlayerCharacterController>(m_InputHandler, this, gameObject);
+        DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, IS_PlayerCharacterController>(m_InputHandler, this, gameObject);
 
-        m_WeaponsManager = GetComponent<PlayerWeaponsManager>();
-        DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerCharacterController>(m_WeaponsManager, this, gameObject);
+        m_WeaponsManager = GetComponent<IS_PlayerWeaponsManager>();
+        DebugUtility.HandleErrorIfNullGetComponent<IS_PlayerWeaponsManager, IS_PlayerCharacterController>(m_WeaponsManager, this, gameObject);
 
         m_Health = GetComponent<Health>();
-        DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerCharacterController>(m_Health, this, gameObject);
+        DebugUtility.HandleErrorIfNullGetComponent<Health, IS_PlayerCharacterController>(m_Health, this, gameObject);
 
         m_Actor = GetComponent<Actor>();
-        DebugUtility.HandleErrorIfNullGetComponent<Actor, PlayerCharacterController>(m_Actor, this, gameObject);
+        DebugUtility.HandleErrorIfNullGetComponent<Actor, IS_PlayerCharacterController>(m_Actor, this, gameObject);
 
         m_Controller.enableOverlapRecovery = true;
 
