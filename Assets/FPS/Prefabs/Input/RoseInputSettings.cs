@@ -72,13 +72,21 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""id"": ""042b37fa-920c-48dc-8dd9-2d7f6a80be36"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Fire"",
                     ""type"": ""Value"",
                     ""id"": ""098b8f01-b5fc-42f9-a1f7-45cbdb34e836"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a1288b2-a1dc-4b81-8627-fe2c181ec7c1"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -189,7 +197,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -201,6 +209,17 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Quick Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e8d3e21-a0f0-4844-a2e6-1bd0455f67ed"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Quick Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -292,6 +311,28 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""416a4f1c-918d-4575-a2b6-3701530d91ed"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard/Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c70918d2-41fd-4b5b-82fa-2b4e8bab8345"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -339,6 +380,17 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""484a3f7f-c50a-4dbe-a3ae-e517b115da0b"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0cc32e0-4ec0-4e00-8a2c-805e5e7f6311"",
                     ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
@@ -401,6 +453,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
         m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
         m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
@@ -463,6 +516,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Sprint;
     private readonly InputAction m_Gameplay_Crouch;
     private readonly InputAction m_Gameplay_Fire;
+    private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
         private @RoseInputSettings m_Wrapper;
@@ -475,6 +529,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
         public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
         public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -508,6 +563,9 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 @Fire.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
+                @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -536,6 +594,9 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -617,6 +678,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

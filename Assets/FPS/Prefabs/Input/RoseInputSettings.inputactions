@@ -59,13 +59,21 @@
                     "id": "042b37fa-920c-48dc-8dd9-2d7f6a80be36",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
                 },
                 {
                     "name": "Fire",
                     "type": "Value",
                     "id": "098b8f01-b5fc-42f9-a1f7-45cbdb34e836",
                     "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "7a1288b2-a1dc-4b81-8627-fe2c181ec7c1",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -176,7 +184,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -188,6 +196,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard/Mouse",
+                    "action": "Quick Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e8d3e21-a0f0-4844-a2e6-1bd0455f67ed",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Quick Switch",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -279,6 +298,28 @@
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "416a4f1c-918d-4575-a2b6-3701530d91ed",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c70918d2-41fd-4b5b-82fa-2b4e8bab8345",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -326,6 +367,17 @@
                 {
                     "name": "",
                     "id": "484a3f7f-c50a-4dbe-a3ae-e517b115da0b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0cc32e0-4ec0-4e00-8a2c-805e5e7f6311",
                     "path": "",
                     "interactions": "",
                     "processors": "",

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff771ccdf4150419d9ff4d342b069aae, type: 3}
   m_Name: Walkthrough4-020
   m_EditorClassIdentifier: 
-  m_SectionTitle: 
   m_Paragraphs:
     m_Items:
     - m_Type: 7
       m_Summary: 
-      m_Text: 
+      m_Description: 
+      m_InstructionBoxTitle: 
+      m_InstructionText: 
       m_TutorialButtonText: 
       m_Tutorial: {fileID: 0}
       m_Icons:
@@ -65,10 +66,12 @@ MonoBehaviour:
           m_UnmaskedControls: []
     - m_Type: 0
       m_Summary: 
-      m_Text: "<b><size=14>Drag Prefab to Scene</size></b>\n\nTo add enemy into the
-        game, copy the <b>Enemy_HoverBot</b> Prefab from the <b>Project Window</b>
-        into the <b>Scene Window</b>.\x03\x03\n\nPrefab is located in:\n<b>FPS</b>
+      m_Description: 
+      m_InstructionBoxTitle: "<b><size=14>Drag Prefab to Scene</size></b>\n\nTo add
+        enemy into the game, copy the <b>Enemy_HoverBot</b> Prefab from the <b>Project
+        Window</b> into the <b>Scene Window</b>.\x03\x03\n\nPrefab is located in:\n<b>FPS</b>
         > <b>Prefabs</b> > <b>Enemies</b>"
+      m_InstructionText: 
       m_TutorialButtonText: 
       m_Tutorial: {fileID: 0}
       m_Icons:
@@ -83,8 +86,10 @@ MonoBehaviour:
         m_UnmaskedViews: []
     - m_Type: 1
       m_Summary: Drag Enemy_HoverBot to Scene
-      m_Text: Click and drag bot prefab from <b>Project Window</b> into the empty
-        space on the level floor in the <b>Scene Window</b>.
+      m_Description: 
+      m_InstructionBoxTitle: Click and drag bot prefab from <b>Project Window</b>
+        into the empty space on the level floor in the <b>Scene Window</b>.
+      m_InstructionText: 
       m_TutorialButtonText: 
       m_Tutorial: {fileID: 0}
       m_Icons:
@@ -153,6 +158,12 @@ MonoBehaviour:
   m_DoneButton: Done
   m_CompletedSound: {fileID: 8300000, guid: 93fbb109633e844259ea828442bda0cb, type: 3}
   m_autoAdvance: 1
+  m_OnBeforePageShown:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnAfterPageShown:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &114034123638553702
 MonoBehaviour:
   m_ObjectHideFlags: 0

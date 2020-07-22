@@ -36,6 +36,8 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     private bool bIsSprinting = false;
 
+    private Vector2 LookDirection;
+
     private void Awake()
     {
         controls = new RoseInputSettings();
@@ -55,6 +57,8 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
+        currentGamepad = Gamepad.current;
+        currentKeyboard = Keyboard.current;
         InputSystem.onDeviceChange +=
       (device, change) =>
       {
@@ -146,7 +150,7 @@ public class IS_PlayerInputHandler : MonoBehaviour
             case InputActionPhase.Performed:
                 {
 
-                    bIsCrouching = !bIsCrouching;
+                    bIsCrouching = true;
                 }
 
                 break;
@@ -265,11 +269,11 @@ public class IS_PlayerInputHandler : MonoBehaviour
     {
         var lookValue = context.ReadValue<Vector2>();
         lookInput = lookValue;
-        Vector2 LookDirection = new Vector2(lookInput.x, lookInput.y);
-       smoothingVector.x = Mathf.Lerp(smoothingVector.x, LookDirection.x, 1f / SmoothingRate);
-            smoothingVector.y = Mathf.Lerp(smoothingVector.y, LookDirection.y, 1f / SmoothingRate);
-            mouseLook += smoothingVector;
-            mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
+        LookDirection = Vector2.Scale(LookDirection, new Vector2(lookSensitivity * SmoothingRate, lookSensitivity * SmoothingRate));
+        smoothingVector.x = Mathf.Lerp(smoothingVector.x, LookDirection.x, 1f / SmoothingRate);
+        smoothingVector.y = Mathf.Lerp(smoothingVector.y, LookDirection.y, 1f / SmoothingRate);
+        mouseLook += smoothingVector;
+        mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
 
     }
 
@@ -290,12 +294,20 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public float GetLookInputsHorizontal()
     {
+        if (invertXAxis)
+        {
+            return -lookInput.x;
+        }
         return lookInput.x;
     }
 
     public float GetLookInputsVertical()
     {
-        return lookInput.y;
+        if (invertYAxis)
+        {
+            return lookInput.y;
+        }
+        return -lookInput.y;
     }
 
     public bool GetJumpInputDown()
@@ -330,9 +342,14 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public bool GetFireInputHeld()
     {
+        bool isGamepad = false;
         if (CanProcessInput())
         {
-            bool isGamepad = currentGamepad.rightTrigger.ReadValue() != 0f;
+            if (currentGamepad != null || Gamepad.current != null)
+            {
+                isGamepad = currentGamepad.rightTrigger.ReadValue() != 0f;
+            }
+
             if (isGamepad)
             {
                 return Input.GetAxis(GameConstants.k_ButtonNameGamepadFire) >= triggerAxisThreshold;
@@ -372,7 +389,7 @@ public class IS_PlayerInputHandler : MonoBehaviour
     {
         if (CanProcessInput())
         {
-            return bIsCrouching;
+            return Keyboard.current.leftCtrlKey.wasPressedThisFrame || Gamepad.current.buttonEast.wasPressedThisFrame;
         }
 
         return false;
@@ -381,8 +398,8 @@ public class IS_PlayerInputHandler : MonoBehaviour
     public bool GetCrouchInputReleased()
     {
         if (CanProcessInput())
-        {
-            return !bIsCrouching;
+        {  
+            return Keyboard.current.leftCtrlKey.wasReleasedThisFrame || Gamepad.current.buttonEast.wasReleasedThisFrame;
         }
 
         return false;
@@ -390,21 +407,21 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public int GetSwitchWeaponInput()
     {
-        // if (CanProcessInput())
-        // {
+        if (CanProcessInput())
+        {
 
-        //     bool isGamepad = Input.GetAxis(GameConstants.k_ButtonNameGamepadSwitchWeapon) != 0f;
-        //     string axisName = isGamepad ? GameConstants.k_ButtonNameGamepadSwitchWeapon : GameConstants.k_ButtonNameSwitchWeapon;
+            bool isGamepad = Gamepad.current.buttonWest.wasPressedThisFrame;
+            string axisName = isGamepad ? GameConstants.k_ButtonNameGamepadSwitchWeapon : GameConstants.k_ButtonNameSwitchWeapon;
 
-        //     if (Input.GetAxis(axisName) > 0f)
-        //         return -1;
-        //     else if (Input.GetAxis(axisName) < 0f)
-        //         return 1;
-        //     else if (Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) > 0f)
-        //         return -1;
-        //     else if (Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) < 0f)
-        //         return 1;
-        // }
+            // if (Input.GetAxis(axisName) > 0f)
+            //     return -1;
+            // else if (Input.GetAxis(axisName) < 0f)
+            //     return 1;
+            // else if (Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) > 0f)
+            //     return -1;
+            // else if (Input.GetAxis(GameConstants.k_ButtonNameNextWeapon) < 0f)
+            //     return 1;
+        }
 
         return 0;
     }
@@ -413,6 +430,22 @@ public class IS_PlayerInputHandler : MonoBehaviour
     {
         if (CanProcessInput())
         {
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                return 1;
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                return 2;
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                return 3;
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                return 4;
+            }
             // if (Input.GetKeyDown(KeyCode.Alpha1))
             //     return 1;
             // else if (Input.GetKeyDown(KeyCode.Alpha2))

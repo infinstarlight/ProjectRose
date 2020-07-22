@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff771ccdf4150419d9ff4d342b069aae, type: 3}
   m_Name: Walkthrough3-13-Spawn-Room
   m_EditorClassIdentifier: 
-  m_SectionTitle: 
   m_Paragraphs:
     m_Items:
     - m_Type: 7
       m_Summary: 
-      m_Text: 
+      m_Description: 
+      m_InstructionBoxTitle: 
+      m_InstructionText: 
       m_TutorialButtonText: 
       m_Tutorial: {fileID: 0}
       m_Icons:
@@ -65,18 +66,20 @@ MonoBehaviour:
           m_UnmaskedControls: []
     - m_Type: 0
       m_Summary: 
-      m_Text: '<b><size=14>Drag Prefab to Scene</size></b>
+      m_Description: 
+      m_InstructionBoxTitle: '<b><size=14>Drag Prefab to Scene</size></b>
 
 
-        To get your
-        room into the game, you need to drag the <b>Room_Altar</b> Prefab from the
-        <b>Project Window</b> into the <b>Scene Window</b>.
+        To
+        get your room into the game, you need to drag the <b>Room_Altar</b> Prefab
+        from the <b>Project Window</b> into the <b>Scene Window</b>.
 
 
-        Prefab is located
-        in:
+        Prefab
+        is located in:
 
         <b>FPS</B> > <b>Prefabs</b> > <b>Level</b> > <b>Rooms</b>'
+      m_InstructionText: 
       m_TutorialButtonText: 
       m_Tutorial: {fileID: 0}
       m_Icons:
@@ -91,8 +94,11 @@ MonoBehaviour:
         m_UnmaskedViews: []
     - m_Type: 1
       m_Summary: Drag Room_Altar Prefab to Scene
-      m_Text: Click and drag the <b>Room_Altar</b> Prefab from the <b>Project Window</b>
-        into the empty space on the level floor in the <b>Scene Window</b>.
+      m_Description: 
+      m_InstructionBoxTitle: Click and drag the <b>Room_Altar</b> Prefab from the
+        <b>Project Window</b> into the empty space on the level floor in the <b>Scene
+        Window</b>.
+      m_InstructionText: 
       m_TutorialButtonText: 
       m_Tutorial: {fileID: 0}
       m_Icons:
@@ -161,6 +167,12 @@ MonoBehaviour:
   m_DoneButton: Done
   m_CompletedSound: {fileID: 8300000, guid: 93fbb109633e844259ea828442bda0cb, type: 3}
   m_autoAdvance: 1
+  m_OnBeforePageShown:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnAfterPageShown:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &114155400192661620
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(IS_PlayerInputHandler))]
 public class IS_PlayerWeaponsManager : MonoBehaviour
@@ -61,6 +62,8 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
     public bool isAiming { get; private set; }
     public bool isPointingAtEnemy { get; private set; }
     public int activeWeaponIndex { get; private set; }
+    private int currentWeaponIndex = 0;
+    private int lastWeaponIndex = 0;
 
     public UnityAction<WeaponController> onSwitchedToWeapon;
     public UnityAction<WeaponController, int> onAddedWeapon;
@@ -162,6 +165,11 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
         }
     }
 
+    public void OnQuickSwitch(InputAction.CallbackContext context)
+    {
+        SwitchToWeaponIndex(lastWeaponIndex,true);
+    }
+
 
     // Update various animated features in LateUpdate because it needs to override the animated arm position
     private void LateUpdate()
@@ -199,6 +207,7 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
                 {
                     closestSlotDistance = distanceToActiveIndex;
                     newWeaponIndex = i;
+                    lastWeaponIndex = newWeaponIndex;
                 }
             }
         }
@@ -210,6 +219,7 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
     // Switches to the given weapon index in weapon slots if the new index is a valid weapon that is different from our current one
     public void SwitchToWeaponIndex(int newWeaponIndex, bool force = false)
     {
+        lastWeaponIndex = activeWeaponIndex;
         if (force || (newWeaponIndex != activeWeaponIndex && newWeaponIndex >= 0))
         {
             // Store data related to weapon switching animation
@@ -233,6 +243,8 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
             else
             {
                 m_WeaponSwitchState = WeaponSwitchState.PutDownPrevious;
+                activeWeaponIndex = newWeaponIndex;
+
             }
         }
     }

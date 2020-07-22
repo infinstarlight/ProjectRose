@@ -236,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 3116547284159928755}
   m_LocalRotation: {x: -0, y: -0.6158128, z: 0, w: -0.7878926}
   m_LocalPosition: {x: 0, y: -0.28243, z: 0}
-  m_LocalScale: {x: 1, y: 1.2824, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3984744535379148616}
   - {fileID: 5758802129619349063}
@@ -262,6 +262,8 @@ MonoBehaviour:
   triggerAxisThreshold: 0.4
   invertYAxis: 0
   invertXAxis: 0
+  mouseLook: {x: 0, y: 0}
+  SmoothingRate: 1
 --- !u!114 &7253983128324381296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +290,7 @@ MonoBehaviour:
   accelerationSpeedInAir: 25
   sprintSpeedModifier: 1.5
   killHeight: -50
-  rotationSpeed: 200
+  rotationSpeed: 0.5
   aimingRotationMultiplier: 0.4
   jumpForce: 9
   cameraHeightRatio: 0.9
@@ -374,7 +376,7 @@ MonoBehaviour:
   aimingAnimationSpeed: 10
   defaultFOV: 60
   weaponFOVMultiplier: 1
-  weaponSwitchDelay: 1
+  weaponSwitchDelay: 0.25
   FPSWeaponLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -630,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8534e17a0f90604c9afd4f5c73d829f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Id: ef3fd116-1457-42e9-8034-f8f72b35dc99
+  m_Id: 
 --- !u!114 &5758802130333971199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,12 +691,12 @@ MonoBehaviour:
     m_ActionName: Gameplay/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 5758802130333971186}
+        m_MethodName: OnJump
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -723,12 +725,12 @@ MonoBehaviour:
     m_ActionName: Gameplay/Aim[/XInputControllerWindows/leftTrigger,/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3116547284159928755}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 5758802130333971186}
+        m_MethodName: OnSprint
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

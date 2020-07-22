@@ -58,33 +58,33 @@ public class InGameMenuManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        // if(Input.GetKeyDown(KeyCode.Escape))
+        // {
+        //     Cursor.lockState = CursorLockMode.None;
+        //     Cursor.visible = true;
+        // }
 
-        if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
-            || (menuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
-        {
-            if (controlImage.activeSelf)
-            {
-                controlImage.SetActive(false);
-                return;
-            }
+        // if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
+        //     || (menuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
+        // {
+        //     if (controlImage.activeSelf)
+        //     {
+        //         controlImage.SetActive(false);
+        //         return;
+        //     }
 
-            SetPauseMenuActivation(!menuRoot.activeSelf);
+        //     SetPauseMenuActivation(!menuRoot.activeSelf);
 
-        }
+        // }
 
-        if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
-        {
-            if (EventSystem.current.currentSelectedGameObject == null)
-            {
-                EventSystem.current.SetSelectedGameObject(null);
-                lookSensitivitySlider.Select();
-            }
-        }
+        // if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
+        // {
+        //     if (EventSystem.current.currentSelectedGameObject == null)
+        //     {
+        //         EventSystem.current.SetSelectedGameObject(null);
+        //         lookSensitivitySlider.Select();
+        //     }
+        // }
     }
 
     public void ClosePauseMenu()
