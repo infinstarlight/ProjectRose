@@ -17,12 +17,12 @@ public class MenuNavigation : MonoBehaviour
     {
         if (EventSystem.current.currentSelectedGameObject == null)
         {
-            if (Input.GetButtonDown(GameConstants.k_ButtonNameSubmit)
-                || Input.GetAxisRaw(GameConstants.k_AxisNameHorizontal) != 0
-                || Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
-            {
-                EventSystem.current.SetSelectedGameObject(defaultSelection.gameObject);
-            }
+            // if (Input.GetButtonDown(GameConstants.k_ButtonNameSubmit)
+            //     || Input.GetAxisRaw(GameConstants.k_AxisNameHorizontal) != 0
+            //     || Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
+            // {
+            //     EventSystem.current.SetSelectedGameObject(defaultSelection.gameObject);
+            // }
         }
     }
 }

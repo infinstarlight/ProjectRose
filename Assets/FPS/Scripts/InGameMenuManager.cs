@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class InGameMenuManager : MonoBehaviour
     [Tooltip("GameObject for the controls")]
     public GameObject controlImage;
 
+    public bool bIsPaused = false;
     IS_PlayerInputHandler m_PlayerInputsHandler;
     Health m_PlayerHealth;
     FramerateCounter m_FramerateCounter;
@@ -85,6 +87,13 @@ public class InGameMenuManager : MonoBehaviour
         //         lookSensitivitySlider.Select();
         //     }
         // }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+
+        bIsPaused = !bIsPaused;
+        SetPauseMenuActivation(bIsPaused);
     }
 
     public void ClosePauseMenu()

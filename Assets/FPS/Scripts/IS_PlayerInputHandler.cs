@@ -26,8 +26,8 @@ public class IS_PlayerInputHandler : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 smoothingVector;
 
-    Keyboard currentKeyboard = Keyboard.current;
-    Gamepad currentGamepad = Gamepad.current;
+   private Keyboard currentKeyboard = Keyboard.current;
+    private Gamepad currentGamepad = Gamepad.current;
 
     private bool bIsJumping = false;
     private bool bIsFiring = false;
@@ -57,7 +57,11 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        currentGamepad = Gamepad.current;
+        if (Gamepad.current != null)
+        {
+            currentGamepad = Gamepad.current;
+        }
+
         currentKeyboard = Keyboard.current;
         InputSystem.onDeviceChange +=
       (device, change) =>
@@ -365,10 +369,14 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public bool GetAimInputHeld()
     {
+        bool isGamepad = false;
         if (CanProcessInput())
         {
-            bool isGamepad = currentGamepad.leftTrigger.ReadValue() != 0f;
-            bool i = isGamepad ? (currentGamepad.rightTrigger.ReadValue() > 0f) : bIsAiming;
+           if(currentGamepad != null || Gamepad.current != null)
+           {
+               isGamepad = currentGamepad.leftTrigger.ReadValue() != 0f;
+           }
+            bool i = isGamepad ? (currentGamepad.leftTrigger.ReadValue() > 0f) : bIsAiming;
             return i;
         }
 
@@ -389,7 +397,12 @@ public class IS_PlayerInputHandler : MonoBehaviour
     {
         if (CanProcessInput())
         {
-            return Keyboard.current.leftCtrlKey.wasPressedThisFrame || Gamepad.current.buttonEast.wasPressedThisFrame;
+            if (currentGamepad != null)
+            {
+                return currentGamepad.buttonEast.wasPressedThisFrame;
+            }
+            return currentKeyboard.leftCtrlKey.wasPressedThisFrame;
+
         }
 
         return false;
@@ -398,8 +411,8 @@ public class IS_PlayerInputHandler : MonoBehaviour
     public bool GetCrouchInputReleased()
     {
         if (CanProcessInput())
-        {  
-            return Keyboard.current.leftCtrlKey.wasReleasedThisFrame || Gamepad.current.buttonEast.wasReleasedThisFrame;
+        {
+            return currentKeyboard.leftCtrlKey.wasReleasedThisFrame || currentGamepad.buttonEast.wasReleasedThisFrame;
         }
 
         return false;
@@ -407,12 +420,20 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public int GetSwitchWeaponInput()
     {
+        bool isGamepad = false;
         if (CanProcessInput())
         {
 
-            bool isGamepad = Gamepad.current.buttonWest.wasPressedThisFrame;
-            string axisName = isGamepad ? GameConstants.k_ButtonNameGamepadSwitchWeapon : GameConstants.k_ButtonNameSwitchWeapon;
-
+//            isGamepad = currentGamepad.buttonWest.wasPressedThisFrame;
+            //string axisName = isGamepad ? GameConstants.k_ButtonNameGamepadSwitchWeapon : GameConstants.k_ButtonNameSwitchWeapon;
+            if(currentKeyboard.qKey.wasPressedThisFrame)
+            {
+                return 1;
+            }
+            if(currentKeyboard.qKey.wasReleasedThisFrame)
+            {
+                return -1;
+            }
             // if (Input.GetAxis(axisName) > 0f)
             //     return -1;
             // else if (Input.GetAxis(axisName) < 0f)

@@ -8,8 +8,8 @@ public class LoadSceneButton : MonoBehaviour
 
     private void Update()
     {
-        if(EventSystem.current.currentSelectedGameObject == gameObject 
-            && Input.GetButtonDown(GameConstants.k_ButtonNameSubmit))
+        if(EventSystem.current.currentSelectedGameObject == gameObject) 
+            
         {
             LoadTargetScene();
         }
