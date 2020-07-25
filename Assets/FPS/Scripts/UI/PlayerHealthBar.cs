@@ -9,14 +9,15 @@ public class PlayerHealthBar : MonoBehaviour
     public Image healthFillImage;
 
     Health m_PlayerHealth;
+    public IS_PlayerCharacterController myPlayerCharacter;
 
     private void Start()
     {
-        IS_PlayerCharacterController IS_PlayerCharacterController = GameObject.FindObjectOfType<IS_PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, PlayerHealthBar>(IS_PlayerCharacterController, this);
+        myPlayerCharacter = GetComponentInParent<IS_PlayerCharacterController>();
+        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, PlayerHealthBar>(myPlayerCharacter, this);
 
-        m_PlayerHealth = IS_PlayerCharacterController.GetComponent<Health>();
-        DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerHealthBar>(m_PlayerHealth, this, IS_PlayerCharacterController.gameObject);
+        m_PlayerHealth = myPlayerCharacter.GetComponent<Health>();
+        DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerHealthBar>(m_PlayerHealth, this, myPlayerCharacter.gameObject);
     }
 
     void Update()

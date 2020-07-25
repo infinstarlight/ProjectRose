@@ -10,7 +10,7 @@ public class NotificationHUDManager : MonoBehaviour
 
     void Awake()
     {
-        IS_PlayerWeaponsManager IS_PlayerWeaponsManager = FindObjectOfType<IS_PlayerWeaponsManager>();
+        IS_PlayerWeaponsManager IS_PlayerWeaponsManager = GetComponentInParent<IS_PlayerWeaponsManager>();
         DebugUtility.HandleErrorIfNullFindObject<IS_PlayerWeaponsManager, NotificationHUDManager>(IS_PlayerWeaponsManager, this);
         IS_PlayerWeaponsManager.onAddedWeapon += OnPickupWeapon;
 

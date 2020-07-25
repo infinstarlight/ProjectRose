@@ -11,10 +11,16 @@ public class JetpackCounter : MonoBehaviour
     public FillBarColorChange fillBarColorChange;
 
     Jetpack m_Jetpack;
+    //The player we're pulling data from
+    public GameObject desiredPlayer;
 
     void Awake()
     {
-        m_Jetpack = FindObjectOfType<Jetpack>();
+        if(desiredPlayer != null)
+        {
+            m_Jetpack = desiredPlayer.GetComponent<Jetpack>();
+        }
+       // m_Jetpack = FindObjectOfType<Jetpack>();
         DebugUtility.HandleErrorIfNullFindObject<Jetpack, JetpackCounter>(m_Jetpack, this);
 
         fillBarColorChange.Initialize(1f, 0f);

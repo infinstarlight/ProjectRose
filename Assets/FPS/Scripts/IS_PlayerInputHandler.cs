@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 
 public class IS_PlayerInputHandler : MonoBehaviour
@@ -16,8 +17,10 @@ public class IS_PlayerInputHandler : MonoBehaviour
     public bool invertXAxis = false;
 
     RoseInputSettings controls;
+    public InputActionAsset myInputAsset;
+    PlayerInput myPlayerInput;
 
-    GameFlowManager m_GameFlowManager;
+    public GameFlowManager m_GameFlowManager;
     IS_PlayerCharacterController m_IS_PlayerCharacterController;
     bool m_FireInputWasHeld;
     public Vector2 mouseLook;
@@ -26,7 +29,7 @@ public class IS_PlayerInputHandler : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 smoothingVector;
 
-   private Keyboard currentKeyboard = Keyboard.current;
+    private Keyboard currentKeyboard = Keyboard.current;
     private Gamepad currentGamepad = Gamepad.current;
 
     private bool bIsJumping = false;
@@ -35,13 +38,16 @@ public class IS_PlayerInputHandler : MonoBehaviour
     private bool bIsCrouching = false;
 
     private bool bIsSprinting = false;
+    public bool bHasJoined = false;
 
     private Vector2 LookDirection;
+    public int playerIndex = 0;
 
     private void Awake()
     {
         controls = new RoseInputSettings();
-
+        myPlayerInput = GetComponent<PlayerInput>();
+        //myPlayerInput.actions
     }
 
     private void Start()
@@ -50,9 +56,17 @@ public class IS_PlayerInputHandler : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent<IS_PlayerCharacterController, IS_PlayerInputHandler>(m_IS_PlayerCharacterController, this, gameObject);
         m_GameFlowManager = FindObjectOfType<GameFlowManager>();
         DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, IS_PlayerInputHandler>(m_GameFlowManager, this);
+        if (currentKeyboard != null)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (m_GameFlowManager.m_Players.Length < 1)
+        {
+            m_GameFlowManager.FindPlayers();
+        }
+
     }
 
     private void FixedUpdate()
@@ -115,7 +129,7 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public bool CanProcessInput()
     {
-        return Cursor.lockState == CursorLockMode.Locked && !m_GameFlowManager.gameIsEnding;
+        return !m_GameFlowManager.gameIsEnding;
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -145,6 +159,20 @@ public class IS_PlayerInputHandler : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (!bHasJoined)
+        {
+            m_GameFlowManager.FindPlayers();
+            bHasJoined = true;
+        }
+        else
+        {
+            //Pause game
+        }
+
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
@@ -356,7 +384,7 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
             if (isGamepad)
             {
-                return Input.GetAxis(GameConstants.k_ButtonNameGamepadFire) >= triggerAxisThreshold;
+                return currentGamepad.rightTrigger.ReadValue() >= triggerAxisThreshold;
             }
             else
             {
@@ -372,10 +400,10 @@ public class IS_PlayerInputHandler : MonoBehaviour
         bool isGamepad = false;
         if (CanProcessInput())
         {
-           if(currentGamepad != null || Gamepad.current != null)
-           {
-               isGamepad = currentGamepad.leftTrigger.ReadValue() != 0f;
-           }
+            if (currentGamepad != null || Gamepad.current != null)
+            {
+                isGamepad = currentGamepad.leftTrigger.ReadValue() != 0f;
+            }
             bool i = isGamepad ? (currentGamepad.leftTrigger.ReadValue() > 0f) : bIsAiming;
             return i;
         }
@@ -420,17 +448,17 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public int GetSwitchWeaponInput()
     {
-        bool isGamepad = false;
+        //  bool isGamepad = false;
         if (CanProcessInput())
         {
 
-//            isGamepad = currentGamepad.buttonWest.wasPressedThisFrame;
+            //            isGamepad = currentGamepad.buttonWest.wasPressedThisFrame;
             //string axisName = isGamepad ? GameConstants.k_ButtonNameGamepadSwitchWeapon : GameConstants.k_ButtonNameSwitchWeapon;
-            if(currentKeyboard.qKey.wasPressedThisFrame)
+            if (currentKeyboard.qKey.wasPressedThisFrame)
             {
                 return 1;
             }
-            if(currentKeyboard.qKey.wasReleasedThisFrame)
+            if (currentKeyboard.qKey.wasReleasedThisFrame)
             {
                 return -1;
             }

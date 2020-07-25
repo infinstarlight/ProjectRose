@@ -10,10 +10,16 @@ public class WeaponHUDManager : MonoBehaviour
 
     IS_PlayerWeaponsManager m_IS_PlayerWeaponsManager;
     List<AmmoCounter> m_AmmoCounters = new List<AmmoCounter>();
+    //The player we're pulling data from
+    public GameObject desiredPlayer;
 
     void Start()
     {
-        m_IS_PlayerWeaponsManager = FindObjectOfType<IS_PlayerWeaponsManager>();
+        if (desiredPlayer != null)
+        {
+            m_IS_PlayerWeaponsManager = desiredPlayer.GetComponent<IS_PlayerWeaponsManager>();
+        }
+        // m_IS_PlayerWeaponsManager = FindObjectOfType<IS_PlayerWeaponsManager>();
         DebugUtility.HandleErrorIfNullFindObject<IS_PlayerWeaponsManager, WeaponHUDManager>(m_IS_PlayerWeaponsManager, this);
 
         WeaponController activeWeapon = m_IS_PlayerWeaponsManager.GetActiveWeapon();
@@ -44,14 +50,14 @@ public class WeaponHUDManager : MonoBehaviour
         int foundCounterIndex = -1;
         for (int i = 0; i < m_AmmoCounters.Count; i++)
         {
-            if(m_AmmoCounters[i].weaponCounterIndex == weaponIndex)
+            if (m_AmmoCounters[i].weaponCounterIndex == weaponIndex)
             {
                 foundCounterIndex = i;
                 Destroy(m_AmmoCounters[i].gameObject);
             }
         }
 
-        if(foundCounterIndex >= 0)
+        if (foundCounterIndex >= 0)
         {
             m_AmmoCounters.RemoveAt(foundCounterIndex);
         }

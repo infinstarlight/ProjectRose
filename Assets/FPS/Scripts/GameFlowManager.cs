@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameFlowManager : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class GameFlowManager : MonoBehaviour
 
     public bool gameIsEnding { get; private set; }
 
-    IS_PlayerCharacterController m_Player;
+    public IS_PlayerCharacterController[] m_Players;
     NotificationHUDManager m_NotificationHUDManager;
     ObjectiveManager m_ObjectiveManager;
     float m_TimeLoadEndGameScene;
@@ -36,11 +37,12 @@ public class GameFlowManager : MonoBehaviour
 
     void Start()
     {
-        m_Player = FindObjectOfType<IS_PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, GameFlowManager>(m_Player, this);
+        m_Players = FindObjectsOfType<IS_PlayerCharacterController>();
+        //Temporarily disabling for now
+        //DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, GameFlowManager>(m_Player, this);
 
         m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
-		DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
+        DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
 
         AudioUtility.SetMasterVolume(1);
     }
@@ -67,7 +69,7 @@ public class GameFlowManager : MonoBehaviour
                 EndGame(true);
 
             // Test if player died
-            if (m_Player.isDead)
+            if (m_Players[0].isDead)
                 EndGame(false);
         }
     }
@@ -106,5 +108,17 @@ public class GameFlowManager : MonoBehaviour
             m_SceneToLoad = loseSceneName;
             m_TimeLoadEndGameScene = Time.time + endSceneLoadDelay;
         }
+    }
+
+    public void FindPlayers()
+    {
+           m_Players = FindObjectsOfType<IS_PlayerCharacterController>();
+        Debug.Log("We have " + m_Players.Length + " number of players!");
+    }
+
+     public void OnJoin(InputAction.CallbackContext context)
+    {
+        m_Players = FindObjectsOfType<IS_PlayerCharacterController>();
+        Debug.Log("We have " + m_Players.Length + " number of players!");
     }
 }

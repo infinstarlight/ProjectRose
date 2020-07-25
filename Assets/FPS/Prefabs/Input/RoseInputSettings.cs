@@ -342,7 +342,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Navigate"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""77b21419-6b3a-426a-80ce-f141b169e3a4"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -358,7 +358,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Submit"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""782d8650-c575-466d-97c9-3ed7616efab1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -366,7 +366,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Cancel"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""73573b8a-42b3-417a-968a-37d1d0774b16"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
