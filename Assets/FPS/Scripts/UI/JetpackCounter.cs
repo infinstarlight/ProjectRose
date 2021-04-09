@@ -16,18 +16,19 @@ public class JetpackCounter : MonoBehaviour
 
     void Awake()
     {
-        if(desiredPlayer != null)
-        {
-            m_Jetpack = desiredPlayer.GetComponent<Jetpack>();
-        }
+        
        // m_Jetpack = FindObjectOfType<Jetpack>();
-        DebugUtility.HandleErrorIfNullFindObject<Jetpack, JetpackCounter>(m_Jetpack, this);
+       // DebugUtility.HandleErrorIfNullFindObject<Jetpack, JetpackCounter>(m_Jetpack, this);
 
         fillBarColorChange.Initialize(1f, 0f);
     }
 
     void Update()
     {
+        if(desiredPlayer != null)
+        {
+            m_Jetpack = desiredPlayer.GetComponent<Jetpack>();
+        }
         mainCanvasGroup.gameObject.SetActive(m_Jetpack.isJetpackUnlocked);
 
         if (m_Jetpack.isJetpackUnlocked)

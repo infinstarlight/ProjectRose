@@ -15,13 +15,13 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
     ""name"": ""RoseInputSettings"",
     ""maps"": [
         {
-            ""name"": ""Gameplay"",
-            ""id"": ""918632a4-cf08-4d74-b97a-07ff9a4e4b9e"",
+            ""name"": ""PC"",
+            ""id"": ""5bdaa76e-fb4f-4b33-b574-394f5a9e2d1c"",
             ""actions"": [
                 {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""b3ac8080-17da-458e-8b6d-efddb210eb0b"",
+                    ""id"": ""8d1bcf4e-fe55-44f6-8316-dc4e87554ae6"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -29,7 +29,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Look"",
                     ""type"": ""Value"",
-                    ""id"": ""ec89cef6-c69c-475f-8d4d-4e8d9a4661fc"",
+                    ""id"": ""a384461b-e690-48f4-8396-ca91bc76241f"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -37,7 +37,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""db381bc3-16b8-4ee1-b20f-b28a4b1e5b03"",
+                    ""id"": ""5eff434c-ab10-4224-b728-1a5aa5b6a765"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -45,7 +45,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Quick Switch"",
                     ""type"": ""Button"",
-                    ""id"": ""2ae6ab2b-5c2c-440a-ae27-f550b187385d"",
+                    ""id"": ""57638b71-1c0b-4eb9-b357-b2c4d41720fe"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -53,7 +53,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
-                    ""id"": ""fbe9d7eb-6a19-46b0-99a8-f49c20d090ee"",
+                    ""id"": ""555a41f0-e8d9-4f05-b787-904248733c15"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -61,7 +61,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
-                    ""id"": ""695ec7ae-785d-45cc-a9b1-6fc60d957533"",
+                    ""id"": ""74bc40d0-3a16-407e-94bd-78194d699a70"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -69,7 +69,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
-                    ""id"": ""042b37fa-920c-48dc-8dd9-2d7f6a80be36"",
+                    ""id"": ""8aaa469f-09bf-4047-94dd-6da69217b3ec"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
@@ -77,7 +77,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Fire"",
                     ""type"": ""Value"",
-                    ""id"": ""098b8f01-b5fc-42f9-a1f7-45cbdb34e836"",
+                    ""id"": ""17054811-abf9-40fb-98a8-b3c67900cf91"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -85,7 +85,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
-                    ""id"": ""7a1288b2-a1dc-4b81-8627-fe2c181ec7c1"",
+                    ""id"": ""5d5f47bd-0593-4a36-85e5-b252dfc7419b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -93,19 +93,8 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""8d4d1641-c00c-4bab-b400-f8cd44053983"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""WASD"",
-                    ""id"": ""9360fa5e-3c02-4373-99ca-0fe28238c9dd"",
+                    ""id"": ""6db6ef67-d545-48e9-aede-a8756a716b49"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -116,7 +105,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""d09f6163-41a0-4ba8-959c-75a919db2d89"",
+                    ""id"": ""887a0eaf-953c-4cf9-81b8-ea0bb1a82a66"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -127,7 +116,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""7985d38b-a774-45d5-b422-ebc0cf6c2f8b"",
+                    ""id"": ""4400110f-cb30-4d9d-881a-13a67910c299"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -138,7 +127,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""4401cbbe-cdeb-4d82-8019-b17d93540fff"",
+                    ""id"": ""c4bdbc42-fdf8-4449-82ab-875b51349415"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -149,7 +138,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""b637a568-1c08-4744-a40f-673cda0ba1bd"",
+                    ""id"": ""4ddc48eb-2c25-43f7-bf69-222c1d4e2b57"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -160,18 +149,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8169b976-b44a-4c8c-811a-1a1e5bc82586"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a20b2ff2-3b31-4732-bb36-0121ed6091e4"",
+                    ""id"": ""4560ca91-3cbe-4fc1-90c1-2593331e6240"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -182,7 +160,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""16762cba-5606-46f4-a213-e89a4a87c0fc"",
+                    ""id"": ""25c80653-5765-4f96-acf3-332f15f5eeed"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -193,18 +171,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8984b1b0-da34-4516-a958-4387b3e80876"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""df994000-a71f-4c9d-90dd-28124f681970"",
+                    ""id"": ""9e6a409e-8d20-47ca-b4f9-0024102d3002"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -215,29 +182,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4e8d3e21-a0f0-4844-a2e6-1bd0455f67ed"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Quick Switch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4e08fb81-0adb-4f59-9174-968059bd699f"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""60d48d62-c354-42ae-8656-2d252348da90"",
+                    ""id"": ""bf7e6296-a0ef-4a24-8658-41ca031c7e45"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -248,7 +193,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""577b269a-0547-4618-bc7c-4ccc8a674d2f"",
+                    ""id"": ""41fa0cf3-ae28-4c10-a7a2-a62cc0bd558b"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -259,7 +204,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d7aec892-9b20-4280-8767-64dab5ed0c80"",
+                    ""id"": ""e17be4b7-caac-40ca-8487-7d1bdcb5b3f5"",
                     ""path"": ""<Gamepad>/leftStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -270,7 +215,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""28a22a7a-cc95-46d0-9245-b28c7872e6f4"",
+                    ""id"": ""c4d38094-ee6c-4e55-95b0-bb9d82f62f02"",
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -281,29 +226,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b13d7ea8-8a53-4fe2-a147-12bf607a5481"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f1b8d89d-0f2e-4a4d-b11e-6d419e014bf0"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""12e18236-59b8-4dfe-b2bc-663ff88b3181"",
+                    ""id"": ""56b3f602-3770-4ad1-86ca-4a421db8a720"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -314,22 +237,11 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""416a4f1c-918d-4575-a2b6-3701530d91ed"",
+                    ""id"": ""e81bf2ee-0009-4b3b-8ee9-9f782d6f372c"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard/Mouse"",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c70918d2-41fd-4b5b-82fa-2b4e8bab8345"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -447,7 +359,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -458,7 +370,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -469,7 +381,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -480,7 +392,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -491,7 +403,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -502,7 +414,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -513,7 +425,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -524,7 +436,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -535,7 +447,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/dpad"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -889,31 +801,20 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Gamepad"",
-            ""bindingGroup"": ""Gamepad"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
         }
     ]
 }");
-        // Gameplay
-        m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-        m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
-        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
-        m_Gameplay_QuickSwitch = m_Gameplay.FindAction("Quick Switch", throwIfNotFound: true);
-        m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
-        m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
-        m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
-        m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
-        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
+        // PC
+        m_PC = asset.FindActionMap("PC", throwIfNotFound: true);
+        m_PC_Move = m_PC.FindAction("Move", throwIfNotFound: true);
+        m_PC_Look = m_PC.FindAction("Look", throwIfNotFound: true);
+        m_PC_Jump = m_PC.FindAction("Jump", throwIfNotFound: true);
+        m_PC_QuickSwitch = m_PC.FindAction("Quick Switch", throwIfNotFound: true);
+        m_PC_Aim = m_PC.FindAction("Aim", throwIfNotFound: true);
+        m_PC_Sprint = m_PC.FindAction("Sprint", throwIfNotFound: true);
+        m_PC_Crouch = m_PC.FindAction("Crouch", throwIfNotFound: true);
+        m_PC_Fire = m_PC.FindAction("Fire", throwIfNotFound: true);
+        m_PC_Pause = m_PC.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -973,69 +874,69 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // Gameplay
-    private readonly InputActionMap m_Gameplay;
-    private IGameplayActions m_GameplayActionsCallbackInterface;
-    private readonly InputAction m_Gameplay_Move;
-    private readonly InputAction m_Gameplay_Look;
-    private readonly InputAction m_Gameplay_Jump;
-    private readonly InputAction m_Gameplay_QuickSwitch;
-    private readonly InputAction m_Gameplay_Aim;
-    private readonly InputAction m_Gameplay_Sprint;
-    private readonly InputAction m_Gameplay_Crouch;
-    private readonly InputAction m_Gameplay_Fire;
-    private readonly InputAction m_Gameplay_Pause;
-    public struct GameplayActions
+    // PC
+    private readonly InputActionMap m_PC;
+    private IPCActions m_PCActionsCallbackInterface;
+    private readonly InputAction m_PC_Move;
+    private readonly InputAction m_PC_Look;
+    private readonly InputAction m_PC_Jump;
+    private readonly InputAction m_PC_QuickSwitch;
+    private readonly InputAction m_PC_Aim;
+    private readonly InputAction m_PC_Sprint;
+    private readonly InputAction m_PC_Crouch;
+    private readonly InputAction m_PC_Fire;
+    private readonly InputAction m_PC_Pause;
+    public struct PCActions
     {
         private @RoseInputSettings m_Wrapper;
-        public GameplayActions(@RoseInputSettings wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Gameplay_Move;
-        public InputAction @Look => m_Wrapper.m_Gameplay_Look;
-        public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
-        public InputAction @QuickSwitch => m_Wrapper.m_Gameplay_QuickSwitch;
-        public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
-        public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
-        public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
-        public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
-        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
+        public PCActions(@RoseInputSettings wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_PC_Move;
+        public InputAction @Look => m_Wrapper.m_PC_Look;
+        public InputAction @Jump => m_Wrapper.m_PC_Jump;
+        public InputAction @QuickSwitch => m_Wrapper.m_PC_QuickSwitch;
+        public InputAction @Aim => m_Wrapper.m_PC_Aim;
+        public InputAction @Sprint => m_Wrapper.m_PC_Sprint;
+        public InputAction @Crouch => m_Wrapper.m_PC_Crouch;
+        public InputAction @Fire => m_Wrapper.m_PC_Fire;
+        public InputAction @Pause => m_Wrapper.m_PC_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_PC; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
-        public void SetCallbacks(IGameplayActions instance)
+        public static implicit operator InputActionMap(PCActions set) { return set.Get(); }
+        public void SetCallbacks(IPCActions instance)
         {
-            if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
+            if (m_Wrapper.m_PCActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Look.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
-                @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @QuickSwitch.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSwitch;
-                @QuickSwitch.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSwitch;
-                @QuickSwitch.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSwitch;
-                @Aim.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
-                @Aim.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
-                @Aim.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAim;
-                @Sprint.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                @Sprint.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                @Sprint.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
-                @Crouch.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
-                @Crouch.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
-                @Crouch.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
-                @Fire.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
-                @Fire.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
-                @Fire.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
-                @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Move.started -= m_Wrapper.m_PCActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnMove;
+                @Look.started -= m_Wrapper.m_PCActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnLook;
+                @Jump.started -= m_Wrapper.m_PCActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnJump;
+                @QuickSwitch.started -= m_Wrapper.m_PCActionsCallbackInterface.OnQuickSwitch;
+                @QuickSwitch.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnQuickSwitch;
+                @QuickSwitch.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnQuickSwitch;
+                @Aim.started -= m_Wrapper.m_PCActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnAim;
+                @Sprint.started -= m_Wrapper.m_PCActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnSprint;
+                @Crouch.started -= m_Wrapper.m_PCActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnCrouch;
+                @Fire.started -= m_Wrapper.m_PCActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnFire;
+                @Pause.started -= m_Wrapper.m_PCActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PCActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PCActionsCallbackInterface.OnPause;
             }
-            m_Wrapper.m_GameplayActionsCallbackInterface = instance;
+            m_Wrapper.m_PCActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Move.started += instance.OnMove;
@@ -1068,7 +969,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
             }
         }
     }
-    public GameplayActions @Gameplay => new GameplayActions(this);
+    public PCActions @PC => new PCActions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -1191,16 +1092,7 @@ public class @RoseInputSettings : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
-    {
-        get
-        {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
-        }
-    }
-    public interface IGameplayActions
+    public interface IPCActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);

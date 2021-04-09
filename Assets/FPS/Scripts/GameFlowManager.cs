@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class GameFlowManager : MonoBehaviour
 {
@@ -29,26 +31,50 @@ public class GameFlowManager : MonoBehaviour
 
     public bool gameIsEnding { get; private set; }
 
+    public GameObject GameHUD;
+
     public IS_PlayerCharacterController[] m_Players;
     NotificationHUDManager m_NotificationHUDManager;
     ObjectiveManager m_ObjectiveManager;
     float m_TimeLoadEndGameScene;
     string m_SceneToLoad;
 
+    RoseInputSettings roseControls;
+    public GameObject playerPrefab;
+
+    void Awake()
+    {
+       // roseControls = new RoseInputSettings();
+        
+        // m_Players = FindObjectsOfType<IS_PlayerCharacterController>();
+    }
+
     void Start()
     {
-        m_Players = FindObjectsOfType<IS_PlayerCharacterController>();
-        //Temporarily disabling for now
-        //DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, GameFlowManager>(m_Player, this);
-
-        m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
-        DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
+        // roseControls = new RoseInputSettings();
+        // var bindingGroup = roseControls.controlSchemes.First(x => x.name == "Gamepad").bindingGroup;
+        // // Spawn players with specific devices.
+        // var p1 = PlayerInput.Instantiate(playerPrefab, controlScheme: "Gamepad", pairWithDevice: Gamepad.all[0]);
+        // var p2 = PlayerInput.Instantiate(playerPrefab, controlScheme: "PC_KBM", pairWithDevice: Keyboard.current);
+        // p1.user.UnpairDevice(Keyboard.current);
+        // p1.user.UnpairDevice(Mouse.current);
+        // p2.user.UnpairDevice(Gamepad.all[0]);
+        // p1.user.actions.bindingMask = InputBinding.MaskByGroup(bindingGroup);
+      
+    
+    
+        m_ObjectiveManager = GetComponent<ObjectiveManager>();
+        //  DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
 
         AudioUtility.SetMasterVolume(1);
+
+        FindPlayers();
     }
 
     void Update()
     {
+
+
         if (gameIsEnding)
         {
             float timeRatio = 1 - (m_TimeLoadEndGameScene - Time.time) / endSceneLoadDelay;
@@ -68,9 +94,9 @@ public class GameFlowManager : MonoBehaviour
             if (m_ObjectiveManager.AreAllObjectivesCompleted())
                 EndGame(true);
 
-            // Test if player died
-            if (m_Players[0].isDead)
-                EndGame(false);
+            // // Test if player died
+            // if (m_Players[0].isDead)
+            //     EndGame(false);
         }
     }
 
@@ -112,13 +138,80 @@ public class GameFlowManager : MonoBehaviour
 
     public void FindPlayers()
     {
-           m_Players = FindObjectsOfType<IS_PlayerCharacterController>();
-        Debug.Log("We have " + m_Players.Length + " number of players!");
+        int i = 0;
+        m_Players = FindObjectsOfType<IS_PlayerCharacterController>();
+        Debug.Log("We have " + m_Players.Length + " player(s)!");
+        for (i = 0; i < m_Players.Length; i++)
+        {
+            m_Players[0].GetComponent<IS_PlayerInputHandler>().playerIndex = 0;
+            m_Players[0].GetComponent<IS_PlayerInputHandler>().bIsHost = true;
+            if (!m_Players[i].GetComponent<IS_PlayerInputHandler>().bIsHost)
+            {
+                m_Players[i].GetComponent<IS_PlayerInputHandler>().playerIndex = i + 1;
+                m_Players[i].playerCamera.GetComponent<AudioListener>().enabled = false;
+
+            }
+            var NewHUD = Instantiate(GameHUD);
+            NewHUD.GetComponent<JetpackCounter>().desiredPlayer = m_Players[i].gameObject;
+            NewHUD.GetComponent<WeaponHUDManager>().desiredPlayer = m_Players[i].gameObject;
+            NewHUD.GetComponent<PlayerHealthBar>().myPlayerCharacter = m_Players[i].GetComponent<IS_PlayerCharacterController>();
+            NewHUD.GetComponent<FeedbackFlashHUD>().myPlayerCharacter = m_Players[i].GetComponent<IS_PlayerCharacterController>();
+            NewHUD.GetComponent<NotificationHUDManager>().PlayerWeaponsManager = m_Players[i].GetComponent<IS_PlayerWeaponsManager>();
+            NewHUD.GetComponent<StanceHUD>().character = m_Players[i].GetComponent<IS_PlayerCharacterController>();
+            NewHUD.GetComponent<CrosshairManager>().m_WeaponsManager = m_Players[i].GetComponent<IS_PlayerWeaponsManager>();
+
+        }
+
+        switch (m_Players.Length)
+        {
+            case 1:
+                {
+                    m_Players[0].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(0, 0, 1, 1);
+                    break;
+                }
+            case 2:
+                {
+                    m_Players[0].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(0, 0.5f, 1, 0.5f);
+                    m_Players[1].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(0, 0, 1, 0.5f);
+                    m_Players[0].GetComponent<IS_PlayerInputHandler>().bIsHost = true;
+                    m_Players[1].GetComponent<IS_PlayerInputHandler>().bIsHost = false;
+
+
+                    break;
+                }
+            case 3:
+                {
+                    m_Players[2].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(-0.5f, 0.5f, 1, 0.5f);
+                    m_Players[1].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+                    m_Players[0].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(0, 0, 1, 0.5f);
+                    m_Players[0].GetComponent<IS_PlayerInputHandler>().bIsHost = true;
+                    m_Players[1].GetComponent<IS_PlayerInputHandler>().bIsHost = false;
+                    m_Players[2].GetComponent<IS_PlayerInputHandler>().bIsHost = false;
+                    break;
+                }
+            case 4:
+                {
+                    m_Players[3].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(0.5f, 0, 0.5f, 0.5f);
+                    m_Players[2].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(0, 0, 0.5f, 0.5f);
+                    m_Players[1].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+                    m_Players[0].GetComponent<IS_PlayerCharacterController>().playerCamera.rect = new Rect(-0.5f, 0.5f, 1, 0.5f);
+                    m_Players[0].GetComponent<IS_PlayerInputHandler>().bIsHost = true;
+                    m_Players[1].GetComponent<IS_PlayerInputHandler>().bIsHost = false;
+                    m_Players[2].GetComponent<IS_PlayerInputHandler>().bIsHost = false;
+                    m_Players[3].GetComponent<IS_PlayerInputHandler>().bIsHost = false;
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
     }
 
-     public void OnJoin(InputAction.CallbackContext context)
+    public void OnJoin()
     {
-        m_Players = FindObjectsOfType<IS_PlayerCharacterController>();
-        Debug.Log("We have " + m_Players.Length + " number of players!");
+        var p2 = PlayerInput.Instantiate(playerPrefab, -1, "Gamepad", -1, Gamepad.current);
+        p2.actions = new RoseInputSettings1().asset;
+        FindPlayers();
     }
 }

@@ -7,7 +7,7 @@ public class CrosshairManager : MonoBehaviour
     public Sprite nullCrosshairSprite;
     public float crosshairUpdateshrpness = 5f;
 
-    IS_PlayerWeaponsManager m_WeaponsManager;
+    public IS_PlayerWeaponsManager m_WeaponsManager;
     bool m_WasPointingAtEnemy;
     RectTransform m_CrosshairRectTransform;
     CrosshairData m_CrosshairDataDefault;
@@ -16,7 +16,7 @@ public class CrosshairManager : MonoBehaviour
 
     void Start()
     {
-        m_WeaponsManager = GetComponentInParent<IS_PlayerWeaponsManager>();
+        //m_WeaponsManager = GetComponentInParent<IS_PlayerWeaponsManager>();
         DebugUtility.HandleErrorIfNullFindObject<IS_PlayerWeaponsManager, CrosshairManager>(m_WeaponsManager, this);
 
         OnWeaponChanged(m_WeaponsManager.GetActiveWeapon());

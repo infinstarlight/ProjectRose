@@ -26,16 +26,19 @@ public class InGameMenuManager : MonoBehaviour
     Health m_PlayerHealth;
     FramerateCounter m_FramerateCounter;
 
+    RoseInputSettings controls;
+
     void Start()
     {
-        m_PlayerInputsHandler = FindObjectOfType<IS_PlayerInputHandler>();
+        controls = new RoseInputSettings();
+        m_PlayerInputsHandler = GetComponentInParent<IS_PlayerInputHandler>();
         DebugUtility.HandleErrorIfNullFindObject<IS_PlayerInputHandler, InGameMenuManager>(m_PlayerInputsHandler, this);
 
         m_PlayerHealth = m_PlayerInputsHandler.GetComponent<Health>();
         DebugUtility.HandleErrorIfNullGetComponent<Health, InGameMenuManager>(m_PlayerHealth, this, gameObject);
 
         m_FramerateCounter = FindObjectOfType<FramerateCounter>();
-        DebugUtility.HandleErrorIfNullFindObject<FramerateCounter, InGameMenuManager>(m_FramerateCounter, this);
+        //DebugUtility.HandleErrorIfNullFindObject<FramerateCounter, InGameMenuManager>(m_FramerateCounter, this);
 
         menuRoot.SetActive(false);
 
@@ -48,12 +51,22 @@ public class InGameMenuManager : MonoBehaviour
         invincibilityToggle.isOn = m_PlayerHealth.invincible;
         invincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
 
-        framerateToggle.isOn = m_FramerateCounter.uiText.gameObject.activeSelf;
-        framerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);
+        // framerateToggle.isOn = m_FramerateCounter.uiText.gameObject.activeSelf;
+        // framerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);
     }
 
     private void Update()
     {
+        if (!m_FramerateCounter)
+        {
+            m_FramerateCounter = FindObjectOfType<FramerateCounter>();
+            framerateToggle.isOn = m_FramerateCounter.uiText.gameObject.activeSelf;
+            framerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);
+        }
+        if (!m_PlayerInputsHandler)
+        {
+
+        }
         // Lock cursor when clicking outside of menu
         if (!menuRoot.activeSelf)
         {
@@ -65,6 +78,19 @@ public class InGameMenuManager : MonoBehaviour
         //     Cursor.lockState = CursorLockMode.None;
         //     Cursor.visible = true;
         // }
+
+        if (bIsPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            menuRoot.SetActive(true);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            menuRoot.SetActive(false);
+        }
 
         // if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
         //     || (menuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
@@ -89,6 +115,8 @@ public class InGameMenuManager : MonoBehaviour
         // }
     }
 
+
+    //This will need to be called from the InputHandler in order to enable/disable correctly
     public void OnPause(InputAction.CallbackContext context)
     {
 

@@ -62,7 +62,6 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
     public bool isAiming { get; private set; }
     public bool isPointingAtEnemy { get; private set; }
     public int activeWeaponIndex { get; private set; }
-    private int currentWeaponIndex = 0;
     private int lastWeaponIndex = 0;
 
     public UnityAction<WeaponController> onSwitchedToWeapon;

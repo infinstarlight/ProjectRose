@@ -7,8 +7,8 @@ public class IS_PlayerCharacterController : MonoBehaviour
     [Header("References")]
     [Tooltip("Reference to the main camera used for the player")]
     public Camera playerCamera;
-     [Tooltip("Reference to the camera used for the player's weapon")]
-     public Camera weaponCamera;
+    [Tooltip("Reference to the camera used for the player's weapon")]
+    public Camera weaponCamera;
     [Tooltip("Audio source for footsteps, jump, etc...")]
     public AudioSource audioSource;
 
@@ -105,7 +105,7 @@ public class IS_PlayerCharacterController : MonoBehaviour
     }
 
     Health m_Health;
-    IS_PlayerInputHandler m_InputHandler;
+    public IS_PlayerInputHandler m_InputHandler;
     CharacterController m_Controller;
     IS_PlayerWeaponsManager m_WeaponsManager;
     Actor m_Actor;
@@ -120,6 +120,7 @@ public class IS_PlayerCharacterController : MonoBehaviour
     const float k_JumpGroundingPreventionTime = 0.2f;
     const float k_GroundCheckDistanceInAir = 0.07f;
     public Rect playerViewportRect;
+
 
     void Start()
     {
@@ -146,17 +147,16 @@ public class IS_PlayerCharacterController : MonoBehaviour
         // force the crouch state to false when starting
         SetCrouchingState(false, true);
         UpdateCharacterHeight(true);
-        if (m_InputHandler.m_GameFlowManager.m_Players[2] == this)
-        {
-            //double x = 0.50;
-            playerCamera.rect = playerViewportRect;
-        }
-        weaponCamera = GetComponentInChildren<Camera>();
-        weaponCamera.rect = playerCamera.rect;
+       
     }
 
     void Update()
     {
+        if (!m_InputHandler)
+        {
+            m_InputHandler = GetComponent<IS_PlayerInputHandler>();
+        }
+
         // check for Y kill
         if (!isDead && transform.position.y < killHeight)
         {

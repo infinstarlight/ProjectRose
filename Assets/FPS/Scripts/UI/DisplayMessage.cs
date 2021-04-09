@@ -17,13 +17,18 @@ public class DisplayMessage : MonoBehaviour
     void Start()
     {
         m_InitTime = Time.time;
-        m_DisplayMessageManager = FindObjectOfType<DisplayMessageManager>();
-        DebugUtility.HandleErrorIfNullFindObject<DisplayMessageManager, DisplayMessage>(m_DisplayMessageManager, this);
+        // m_DisplayMessageManager = FindObjectOfType<DisplayMessageManager>();
+        // DebugUtility.HandleErrorIfNullFindObject<DisplayMessageManager, DisplayMessage>(m_DisplayMessageManager, this);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!m_DisplayMessageManager)
+        {
+            m_DisplayMessageManager = FindObjectOfType<DisplayMessageManager>();
+        DebugUtility.HandleErrorIfNullFindObject<DisplayMessageManager, DisplayMessage>(m_DisplayMessageManager, this);
+        }
         if (m_WasDisplayed)
             return;
 

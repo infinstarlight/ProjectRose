@@ -9,11 +9,12 @@ public class StanceHUD : MonoBehaviour
     public Sprite standingSprite;
     [Tooltip("Sprite to display when crouching")]
     public Sprite crouchingSprite;
+    public IS_PlayerCharacterController character;
 
     private void Start()
     {
-        IS_PlayerCharacterController character = GetComponentInParent<IS_PlayerCharacterController>();
-        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, StanceHUD>(character, this);
+        //character = GetComponentInParent<IS_PlayerCharacterController>();
+       // DebugUtility.HandleErrorIfNullFindObject<IS_PlayerCharacterController, StanceHUD>(character, this);
         character.onStanceChanged += OnStanceChanged;
 
         OnStanceChanged(character.isCrouching);

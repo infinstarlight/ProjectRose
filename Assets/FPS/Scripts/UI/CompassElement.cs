@@ -11,17 +11,34 @@ public class CompassElement : MonoBehaviour
 
     void Awake()
     {
-        m_Compass = FindObjectOfType<Compass>();
-        DebugUtility.HandleErrorIfNullFindObject<Compass, CompassElement>(m_Compass, this);
+        // m_Compass = FindObjectOfType<Compass>();
+        // DebugUtility.HandleErrorIfNullFindObject<Compass, CompassElement>(m_Compass, this);
 
-        var markerInstance = Instantiate(compassMarkerPrefab);
+        // var markerInstance = Instantiate(compassMarkerPrefab);
 
-        markerInstance.Initialize(this, textDirection);
-        m_Compass.RegisterCompassElement(transform, markerInstance);
+        // markerInstance.Initialize(this, textDirection);
+        // m_Compass.RegisterCompassElement(transform, markerInstance);
     }
+
+    // void Update()
+    // {
+    //     if (!m_Compass)
+    //     {
+    //         m_Compass = FindObjectOfType<Compass>();
+
+
+    //     }
+
+    //     if (m_Compass)
+    //     {
+    //         var markerInstance = Instantiate(compassMarkerPrefab);
+    //         markerInstance.Initialize(this, textDirection);
+    //        // m_Compass.RegisterCompassElement(transform, markerInstance);
+    //     }
+    // }
 
     void OnDestroy()
     {
-        m_Compass.UnregisterCompassElement(transform);
+       // m_Compass.UnregisterCompassElement(transform);
     }
 }

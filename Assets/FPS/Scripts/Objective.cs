@@ -22,20 +22,29 @@ public class Objective : MonoBehaviour
 
     void Start()
     {
-        // add this objective to the list contained in the objective manager
-        ObjectiveManager objectiveManager = FindObjectOfType<ObjectiveManager>();
-        DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, Objective>(objectiveManager, this);
-        objectiveManager.RegisterObjective(this);
+        // // add this objective to the list contained in the objective manager
+        // ObjectiveManager objectiveManager = FindObjectOfType<ObjectiveManager>();
+        // //DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, Objective>(objectiveManager, this);
+        // objectiveManager.RegisterObjective(this);
 
-        // register this objective in the ObjectiveHUDManger
-        m_ObjectiveHUDManger = FindObjectOfType<ObjectiveHUDManger>();
-        DebugUtility.HandleErrorIfNullFindObject<ObjectiveHUDManger, Objective>(m_ObjectiveHUDManger, this);
-        m_ObjectiveHUDManger.RegisterObjective(this);
+        // // register this objective in the ObjectiveHUDManger
+        // m_ObjectiveHUDManger = FindObjectOfType<ObjectiveHUDManger>();
+        // //        DebugUtility.HandleErrorIfNullFindObject<ObjectiveHUDManger, Objective>(m_ObjectiveHUDManger, this);
+        // m_ObjectiveHUDManger.RegisterObjective(this);
 
-        // register this objective in the NotificationHUDManager
-        m_NotificationHUDManager = FindObjectOfType<NotificationHUDManager>();
-        DebugUtility.HandleErrorIfNullFindObject<NotificationHUDManager, Objective>(m_NotificationHUDManager, this);
-        m_NotificationHUDManager.RegisterObjective(this);
+        // // register this objective in the NotificationHUDManager
+        // m_NotificationHUDManager = FindObjectOfType<NotificationHUDManager>();
+        // // DebugUtility.HandleErrorIfNullFindObject<NotificationHUDManager, Objective>(m_NotificationHUDManager, this);
+        // m_NotificationHUDManager.RegisterObjective(this);
+        InitObjective();
+    }
+
+    private void Update()
+    {
+        if(!m_ObjectiveHUDManger)
+        {
+            InitObjective();
+        }
     }
 
     public void UpdateObjective(string descriptionText, string counterText, string notificationText)
@@ -52,7 +61,34 @@ public class Objective : MonoBehaviour
         m_ObjectiveHUDManger.UnregisterObjective(this);
         m_NotificationHUDManager.UnregisterObjective(this);
     }
+    public void InitObjective()
+    {
+        // add this objective to the list contained in the objective manager
+        ObjectiveManager objectiveManager = FindObjectOfType<ObjectiveManager>();
+        //DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, Objective>(objectiveManager, this);
+        objectiveManager.RegisterObjective(this);
+
+        // register this objective in the ObjectiveHUDManger
+        m_ObjectiveHUDManger = FindObjectOfType<ObjectiveHUDManger>();
+        //        DebugUtility.HandleErrorIfNullFindObject<ObjectiveHUDManger, Objective>(m_ObjectiveHUDManger, this);
+        if(m_ObjectiveHUDManger)
+        {
+            m_ObjectiveHUDManger.RegisterObjective(this);
+        }
+        
+
+        // register this objective in the NotificationHUDManager
+        m_NotificationHUDManager = FindObjectOfType<NotificationHUDManager>();
+        // DebugUtility.HandleErrorIfNullFindObject<NotificationHUDManager, Objective>(m_NotificationHUDManager, this);
+        if(m_NotificationHUDManager)
+        {
+            m_NotificationHUDManager.RegisterObjective(this);    
+        }
+        
+    }
+
 }
+
 
 public class UnityActionUpdateObjective
 {

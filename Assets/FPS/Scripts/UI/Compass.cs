@@ -74,7 +74,7 @@ public class Compass : MonoBehaviour
     public void RegisterCompassElement(Transform element, CompassMarker marker)
     {
         marker.transform.SetParent(compasRect);
-
+    
         m_ElementsDictionnary.Add(element, marker);
     }
 

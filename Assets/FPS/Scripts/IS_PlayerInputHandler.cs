@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.Users;
 
 
 public class IS_PlayerInputHandler : MonoBehaviour
@@ -17,11 +18,12 @@ public class IS_PlayerInputHandler : MonoBehaviour
     public bool invertXAxis = false;
 
     RoseInputSettings controls;
-    public InputActionAsset myInputAsset;
+    RoseInputSettings1 gamepadControls;
     PlayerInput myPlayerInput;
 
     public GameFlowManager m_GameFlowManager;
     IS_PlayerCharacterController m_IS_PlayerCharacterController;
+    IS_PlayerWeaponsManager WeaponsManager;
     bool m_FireInputWasHeld;
     public Vector2 mouseLook;
     public float SmoothingRate = 2.0f;
@@ -38,20 +40,38 @@ public class IS_PlayerInputHandler : MonoBehaviour
     private bool bIsCrouching = false;
 
     private bool bIsSprinting = false;
-    public bool bHasJoined = false;
+    //public bool bHasJoined = false;
+
+    public bool bIsHost = false;
+
+    public bool bIsPaused = false;
 
     private Vector2 LookDirection;
     public int playerIndex = 0;
+    public InGameMenuManager MenuManager;
+
+    public int GetPlayerIndex()
+    {
+        return playerIndex;
+    }
 
     private void Awake()
     {
         controls = new RoseInputSettings();
+        gamepadControls = new RoseInputSettings1();
         myPlayerInput = GetComponent<PlayerInput>();
-        //myPlayerInput.actions
+
+        WeaponsManager = GetComponent<IS_PlayerWeaponsManager>();
+        MenuManager = FindObjectOfType<InGameMenuManager>();
     }
 
     private void Start()
     {
+        InputUser.CreateUserWithoutPairedDevices();
+        if (MenuManager)
+        {
+            MenuManager.gameObject.SetActive(false);
+        }
         m_IS_PlayerCharacterController = GetComponent<IS_PlayerCharacterController>();
         DebugUtility.HandleErrorIfNullGetComponent<IS_PlayerCharacterController, IS_PlayerInputHandler>(m_IS_PlayerCharacterController, this, gameObject);
         m_GameFlowManager = FindObjectOfType<GameFlowManager>();
@@ -61,20 +81,26 @@ public class IS_PlayerInputHandler : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-
-        if (m_GameFlowManager.m_Players.Length < 1)
-        {
-            m_GameFlowManager.FindPlayers();
-        }
+        ToggleGameplayInput(true);
 
     }
 
     private void FixedUpdate()
     {
+
         if (Gamepad.current != null)
         {
             currentGamepad = Gamepad.current;
+            if(currentGamepad.selectButton.wasPressedThisFrame)
+            {
+                m_GameFlowManager.OnJoin();
+                
+            }
         }
+        var allGamepads = Gamepad.all;
+        Debug.Log(allGamepads.Count);
+
+
 
         currentKeyboard = Keyboard.current;
         InputSystem.onDeviceChange +=
@@ -114,12 +140,18 @@ public class IS_PlayerInputHandler : MonoBehaviour
                   // Remove from Input System entirely; by default, devices stay in the system once discovered
                   //Debug.LogWarning("Device removed: " + device);
                   InputSystem.RemoveDevice(device);
+
                   break;
               default:
                   // See InputDeviceChange reference for other event types.
                   break;
           }
       };
+
+        if (!m_GameFlowManager)
+        {
+            m_GameFlowManager = FindObjectOfType<GameFlowManager>();
+        }
     }
 
     private void LateUpdate()
@@ -129,11 +161,16 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public bool CanProcessInput()
     {
-        return !m_GameFlowManager.gameIsEnding;
+        if (m_GameFlowManager)
+        {
+            return !m_GameFlowManager.gameIsEnding;
+        }
+        return true;
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
+
         switch (context.phase)
         {
             case InputActionPhase.Performed:
@@ -163,138 +200,201 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (!bHasJoined)
-        {
-            m_GameFlowManager.FindPlayers();
-            bHasJoined = true;
-        }
-        else
+        //m_GameFlowManager.FindPlayers();
+
+        if (bIsHost)
         {
             //Pause game
+            if (!bIsPaused)
+            {
+                bIsPaused = true;
+                MenuManager.gameObject.SetActive(bIsPaused);
+                MenuManager.bIsPaused = bIsPaused;
+                ToggleGameplayInput(false);
+
+            }
+            else
+            {
+                bIsPaused = false;
+                ToggleGameplayInput(true);
+                MenuManager.gameObject.SetActive(bIsPaused);
+                MenuManager.bIsPaused = bIsPaused;
+                //controls.PC.Enable();
+                controls.UI.Disable();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
+
 
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        switch (context.phase)
+        if (!IsGamePaused())
         {
-            case InputActionPhase.Performed:
-                {
-
-                    bIsCrouching = true;
-                }
-
-                break;
-
-            case InputActionPhase.Started:
-                {
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
                     {
 
-
+                        bIsCrouching = true;
                     }
-                }
-                break;
-            case InputActionPhase.Canceled:
-                {
 
-                    bIsCrouching = false;
-                }
-                break;
+                    break;
+
+                case InputActionPhase.Started:
+                    {
+                        {
+
+
+                        }
+                    }
+                    break;
+                case InputActionPhase.Canceled:
+                    {
+
+                        bIsCrouching = false;
+                    }
+                    break;
+            }
         }
+
     }
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        switch (context.phase)
+        if (!IsGamePaused())
         {
-            case InputActionPhase.Performed:
-                {
-
-                    bIsFiring = true;
-                }
-
-                break;
-
-            case InputActionPhase.Started:
-                {
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
                     {
 
-
+                        bIsFiring = true;
                     }
-                }
-                break;
-            case InputActionPhase.Canceled:
-                {
 
-                    bIsFiring = false;
-                }
-                break;
+                    break;
+
+                case InputActionPhase.Started:
+                    {
+                        {
+
+
+                        }
+                    }
+                    break;
+                case InputActionPhase.Canceled:
+                    {
+
+                        bIsFiring = false;
+                    }
+                    break;
+            }
         }
+
     }
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-        switch (context.phase)
+        if (!IsGamePaused())
         {
-            case InputActionPhase.Performed:
-                {
-
-                    bIsSprinting = true;
-                }
-
-                break;
-
-            case InputActionPhase.Started:
-                {
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
                     {
 
-
+                        bIsSprinting = true;
                     }
-                }
-                break;
-            case InputActionPhase.Canceled:
-                {
 
-                    bIsSprinting = false;
-                }
-                break;
+                    break;
+
+                case InputActionPhase.Started:
+                    {
+                        {
+
+
+                        }
+                    }
+                    break;
+                case InputActionPhase.Canceled:
+                    {
+
+                        bIsSprinting = false;
+                    }
+                    break;
+            }
         }
+
     }
 
     public void OnAim(InputAction.CallbackContext context)
     {
-        switch (context.phase)
+        if (!IsGamePaused())
         {
-            case InputActionPhase.Performed:
-                {
-
-                    bIsAiming = true;
-                }
-
-                break;
-
-            case InputActionPhase.Started:
-                {
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
                     {
 
-
+                        bIsAiming = true;
                     }
-                }
-                break;
-            case InputActionPhase.Canceled:
-                {
 
-                    bIsAiming = false;
-                }
-                break;
+                    break;
+
+                case InputActionPhase.Started:
+                    {
+                        {
+
+
+                        }
+                    }
+                    break;
+                case InputActionPhase.Canceled:
+                    {
+
+                        bIsAiming = false;
+                    }
+                    break;
+            }
         }
+
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        var moveValue = context.ReadValue<Vector2>();
-        moveInput = moveValue;
+
+        if (!IsGamePaused())
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
+                    {
+
+                        var moveValue = context.ReadValue<Vector2>();
+                        moveInput = moveValue;
+                    }
+
+                    break;
+
+                case InputActionPhase.Started:
+                    {
+                        {
+
+
+                        }
+                    }
+                    break;
+                case InputActionPhase.Canceled:
+                    {
+                        var moveValue = context.ReadValue<Vector2>();
+                        moveInput = moveValue;
+
+                    }
+                    break;
+            }
+        }
+
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -306,6 +406,11 @@ public class IS_PlayerInputHandler : MonoBehaviour
         smoothingVector.y = Mathf.Lerp(smoothingVector.y, LookDirection.y, 1f / SmoothingRate);
         mouseLook += smoothingVector;
         mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
+        if (!IsGamePaused())
+        {
+
+        }
+
 
     }
 
@@ -425,11 +530,7 @@ public class IS_PlayerInputHandler : MonoBehaviour
     {
         if (CanProcessInput())
         {
-            if (currentGamepad != null)
-            {
-                return currentGamepad.buttonEast.wasPressedThisFrame;
-            }
-            return currentKeyboard.leftCtrlKey.wasPressedThisFrame;
+            return bIsCrouching;
 
         }
 
@@ -495,26 +596,11 @@ public class IS_PlayerInputHandler : MonoBehaviour
             {
                 return 4;
             }
-            // if (Input.GetKeyDown(KeyCode.Alpha1))
-            //     return 1;
-            // else if (Input.GetKeyDown(KeyCode.Alpha2))
-            //     return 2;
-            // else if (Input.GetKeyDown(KeyCode.Alpha3))
-            //     return 3;
-            // else if (Input.GetKeyDown(KeyCode.Alpha4))
-            //     return 4;
-            // else if (Input.GetKeyDown(KeyCode.Alpha5))
-            //     return 5;
-            // else if (Input.GetKeyDown(KeyCode.Alpha6))
-            //     return 6;
-            // else
-            //     return 0;
+
         }
 
         return 0;
     }
-
-
 
     float GetMouseOrStickLookAxis(string mouseInputName, string stickInputName)
     {
@@ -523,7 +609,8 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
             // Check if this look input is coming from the mouse
             bool isGamepad = currentGamepad.leftStick.ReadValue() != Vector2.zero;
-            float i = isGamepad ? Input.GetAxis(stickInputName) : Input.GetAxisRaw(mouseInputName);
+            float i = isGamepad ? currentGamepad.leftStick.ReadUnprocessedValue().x : Mouse.current.delta.ReadUnprocessedValue().x;
+
 
             // handle inverting vertical input
             if (invertYAxis)
@@ -551,5 +638,67 @@ public class IS_PlayerInputHandler : MonoBehaviour
         }
 
         return 0f;
+    }
+
+    bool IsGamePaused()
+    {
+        return bIsPaused;
+    }
+    void ToggleGameplayInput(bool bIsGameplay)
+    {
+        if (bIsGameplay)
+        {
+            if (playerIndex > 1)
+            {
+                myPlayerInput.actions = gamepadControls.asset;
+                gamepadControls.Gameplay.Fire.performed += OnFire;
+                gamepadControls.Gameplay.Fire.canceled += OnFire;
+                gamepadControls.Gameplay.Jump.performed += OnJump;
+                gamepadControls.Gameplay.Jump.canceled += OnJump;
+                gamepadControls.Gameplay.Crouch.performed += OnCrouch;
+                gamepadControls.Gameplay.Crouch.canceled += OnCrouch;
+                gamepadControls.Gameplay.Pause.performed += OnPause;
+                gamepadControls.Gameplay.Move.performed += OnMove;
+                gamepadControls.Gameplay.Move.canceled += OnMove;
+                gamepadControls.Gameplay.Look.performed += OnLook;
+                gamepadControls.Gameplay.Look.canceled += OnLook;
+                gamepadControls.Gameplay.Aim.performed += OnAim;
+                gamepadControls.Gameplay.Aim.canceled += OnAim;
+                gamepadControls.Gameplay.Sprint.performed += OnSprint;
+                gamepadControls.Gameplay.QuickSwitch.performed += WeaponsManager.OnQuickSwitch;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+
+                gamepadControls.Gameplay.Enable();
+            }
+            controls.PC.Fire.performed += OnFire;
+            controls.PC.Fire.canceled += OnFire;
+            controls.PC.Jump.performed += OnJump;
+            controls.PC.Jump.canceled += OnJump;
+            controls.PC.Crouch.performed += OnCrouch;
+            controls.PC.Crouch.canceled += OnCrouch;
+            controls.PC.Pause.performed += OnPause;
+            controls.PC.Move.performed += OnMove;
+            controls.PC.Move.canceled += OnMove;
+            controls.PC.Look.performed += OnLook;
+            controls.PC.Look.canceled += OnLook;
+            controls.PC.Aim.performed += OnAim;
+            controls.PC.Aim.canceled += OnAim;
+            controls.PC.Sprint.performed += OnSprint;
+            controls.PC.QuickSwitch.performed += WeaponsManager.OnQuickSwitch;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            controls.PC.Enable();
+        }
+        else
+        {
+            controls.PC.Disable();
+            controls.UI.Pause.performed += OnPause;
+            controls.UI.Enable();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+        }
     }
 }

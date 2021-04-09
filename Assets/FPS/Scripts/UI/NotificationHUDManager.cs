@@ -6,17 +6,26 @@ public class NotificationHUDManager : MonoBehaviour
     public RectTransform notificationPanel;
     [Tooltip("Prefab for the notifications")]
     public GameObject notificationPrefab;
+     public IS_PlayerWeaponsManager PlayerWeaponsManager;
 
 
     void Awake()
     {
-        IS_PlayerWeaponsManager IS_PlayerWeaponsManager = GetComponentInParent<IS_PlayerWeaponsManager>();
-        DebugUtility.HandleErrorIfNullFindObject<IS_PlayerWeaponsManager, NotificationHUDManager>(IS_PlayerWeaponsManager, this);
-        IS_PlayerWeaponsManager.onAddedWeapon += OnPickupWeapon;
+        //PlayerWeaponsManager = GetComponentInParent<IS_PlayerWeaponsManager>();
+        //DebugUtility.HandleErrorIfNullFindObject<IS_PlayerWeaponsManager, NotificationHUDManager>(IS_PlayerWeaponsManager, this);
+        //PlayerWeaponsManager.onAddedWeapon += OnPickupWeapon;
 
         Jetpack jetpack = FindObjectOfType<Jetpack>();
-        DebugUtility.HandleErrorIfNullFindObject<Jetpack, NotificationHUDManager>(jetpack, this);
+       // DebugUtility.HandleErrorIfNullFindObject<Jetpack, NotificationHUDManager>(jetpack, this);
         jetpack.onUnlockJetpack += OnUnlockJetpack;
+    }
+
+    private void Update() 
+    {
+        if(PlayerWeaponsManager)    
+        {
+            PlayerWeaponsManager.onAddedWeapon += OnPickupWeapon;
+        }
     }
 
     void OnUpdateObjective(UnityActionUpdateObjective updateObjective)
