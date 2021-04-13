@@ -69,6 +69,8 @@ public class GameFlowManager : MonoBehaviour
         AudioUtility.SetMasterVolume(1);
 
         FindPlayers();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -151,14 +153,14 @@ public class GameFlowManager : MonoBehaviour
                 m_Players[i].playerCamera.GetComponent<AudioListener>().enabled = false;
 
             }
-            var NewHUD = Instantiate(GameHUD);
-            NewHUD.GetComponent<JetpackCounter>().desiredPlayer = m_Players[i].gameObject;
-            NewHUD.GetComponent<WeaponHUDManager>().desiredPlayer = m_Players[i].gameObject;
-            NewHUD.GetComponent<PlayerHealthBar>().myPlayerCharacter = m_Players[i].GetComponent<IS_PlayerCharacterController>();
-            NewHUD.GetComponent<FeedbackFlashHUD>().myPlayerCharacter = m_Players[i].GetComponent<IS_PlayerCharacterController>();
-            NewHUD.GetComponent<NotificationHUDManager>().PlayerWeaponsManager = m_Players[i].GetComponent<IS_PlayerWeaponsManager>();
-            NewHUD.GetComponent<StanceHUD>().character = m_Players[i].GetComponent<IS_PlayerCharacterController>();
-            NewHUD.GetComponent<CrosshairManager>().m_WeaponsManager = m_Players[i].GetComponent<IS_PlayerWeaponsManager>();
+            // var NewHUD = Instantiate(GameHUD);
+            // NewHUD.GetComponent<JetpackCounter>().desiredPlayer = m_Players[i].gameObject;
+            // NewHUD.GetComponent<WeaponHUDManager>().desiredPlayer = m_Players[i].gameObject;
+            // NewHUD.GetComponent<PlayerHealthBar>().myPlayerCharacter = m_Players[i].GetComponent<IS_PlayerCharacterController>();
+            // NewHUD.GetComponent<FeedbackFlashHUD>().myPlayerCharacter = m_Players[i].GetComponent<IS_PlayerCharacterController>();
+            // NewHUD.GetComponent<NotificationHUDManager>().PlayerWeaponsManager = m_Players[i].GetComponent<IS_PlayerWeaponsManager>();
+            // NewHUD.GetComponent<StanceHUD>().character = m_Players[i].GetComponent<IS_PlayerCharacterController>();
+            // NewHUD.GetComponent<CrosshairManager>().m_WeaponsManager = m_Players[i].GetComponent<IS_PlayerWeaponsManager>();
 
         }
 

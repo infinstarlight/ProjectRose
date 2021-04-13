@@ -91,10 +91,10 @@ public class IS_PlayerInputHandler : MonoBehaviour
         if (Gamepad.current != null)
         {
             currentGamepad = Gamepad.current;
-            if(currentGamepad.selectButton.wasPressedThisFrame)
+            if (currentGamepad.selectButton.wasPressedThisFrame)
             {
                 m_GameFlowManager.OnJoin();
-                
+
             }
         }
         var allGamepads = Gamepad.all;
@@ -640,6 +640,20 @@ public class IS_PlayerInputHandler : MonoBehaviour
         return 0f;
     }
 
+    public bool IsPlayerHost()
+    {
+        if (bIsHost || playerIndex == 0)
+        {
+            bIsHost = true;
+            return true;
+        }
+        else
+        {
+            bIsHost = false;
+            return false;
+        }
+    }
+
     bool IsGamePaused()
     {
         return bIsPaused;
@@ -648,7 +662,8 @@ public class IS_PlayerInputHandler : MonoBehaviour
     {
         if (bIsGameplay)
         {
-            if (playerIndex > 1)
+
+            if (playerIndex > 1 || !bIsHost)
             {
                 myPlayerInput.actions = gamepadControls.asset;
                 gamepadControls.Gameplay.Fire.performed += OnFire;
@@ -671,33 +686,53 @@ public class IS_PlayerInputHandler : MonoBehaviour
 
                 gamepadControls.Gameplay.Enable();
             }
-            controls.PC.Fire.performed += OnFire;
-            controls.PC.Fire.canceled += OnFire;
-            controls.PC.Jump.performed += OnJump;
-            controls.PC.Jump.canceled += OnJump;
-            controls.PC.Crouch.performed += OnCrouch;
-            controls.PC.Crouch.canceled += OnCrouch;
-            controls.PC.Pause.performed += OnPause;
-            controls.PC.Move.performed += OnMove;
-            controls.PC.Move.canceled += OnMove;
-            controls.PC.Look.performed += OnLook;
-            controls.PC.Look.canceled += OnLook;
-            controls.PC.Aim.performed += OnAim;
-            controls.PC.Aim.canceled += OnAim;
-            controls.PC.Sprint.performed += OnSprint;
-            controls.PC.QuickSwitch.performed += WeaponsManager.OnQuickSwitch;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            else
+            {
+                myPlayerInput.actions = controls.asset;
+                controls.PC.Fire.performed += OnFire;
+                controls.PC.Fire.canceled += OnFire;
+                controls.PC.Jump.performed += OnJump;
+                controls.PC.Jump.canceled += OnJump;
+                controls.PC.Crouch.performed += OnCrouch;
+                controls.PC.Crouch.canceled += OnCrouch;
+                controls.PC.Pause.performed += OnPause;
+                controls.PC.Move.performed += OnMove;
+                controls.PC.Move.canceled += OnMove;
+                controls.PC.Look.performed += OnLook;
+                controls.PC.Look.canceled += OnLook;
+                controls.PC.Aim.performed += OnAim;
+                controls.PC.Aim.canceled += OnAim;
+                controls.PC.Sprint.performed += OnSprint;
+                controls.PC.QuickSwitch.performed += WeaponsManager.OnQuickSwitch;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
 
-            controls.PC.Enable();
+                controls.PC.Enable();
+                if (!gamepadControls.asset)
+                {
+                    gamepadControls.Gameplay.Disable();
+                }
+            }
+
+
         }
         else
         {
-            controls.PC.Disable();
-            controls.UI.Pause.performed += OnPause;
-            controls.UI.Enable();
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            if (IsPlayerHost())
+            {
+                controls.PC.Disable();
+                controls.UI.Pause.performed += OnPause;
+                controls.UI.Enable();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                gamepadControls.Gameplay.Disable();
+                gamepadControls.UI.Pause.performed += OnPause;
+                gamepadControls.UI.Enable();
+            }
+
 
         }
     }

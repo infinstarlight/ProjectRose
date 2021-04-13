@@ -105,6 +105,8 @@ public class IS_PlayerCharacterController : MonoBehaviour
     }
 
     Health m_Health;
+
+    PlayerHUD m_HUD;
     public IS_PlayerInputHandler m_InputHandler;
     CharacterController m_Controller;
     IS_PlayerWeaponsManager m_WeaponsManager;
@@ -152,6 +154,10 @@ public class IS_PlayerCharacterController : MonoBehaviour
 
     void Update()
     {
+        if(!m_HUD)
+        {
+            m_HUD = FindObjectOfType<PlayerHUD>();
+        }
         if (!m_InputHandler)
         {
             m_InputHandler = GetComponent<IS_PlayerInputHandler>();

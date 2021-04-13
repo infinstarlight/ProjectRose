@@ -103,6 +103,7 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
             AddWeapon(weapon);
         }
         SwitchWeapon(true);
+        weaponCamera.rect = m_IS_PlayerCharacterController.playerCamera.rect;
     }
 
     private void Update()
@@ -401,6 +402,7 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
     // Adds a weapon to our inventory
     public bool AddWeapon(WeaponController weaponPrefab)
     {
+        int i = 0;
         // if we already hold this weapon type (a weapon coming from the same source prefab), don't add the weapon
         if (HasWeapon(weaponPrefab))
         {
@@ -408,7 +410,7 @@ public class IS_PlayerWeaponsManager : MonoBehaviour
         }
 
         // search our weapon slots for the first free one, assign the weapon to it, and return true if we found one. Return false otherwise
-        for (int i = 0; i < m_WeaponSlots.Length; i++)
+        for (i = 0; i < m_WeaponSlots.Length; i++)
         {
             // only add the weapon if the slot is free
             if (m_WeaponSlots[i] == null)

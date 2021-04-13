@@ -11,13 +11,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - 1PLayer
+  - 2PLayer
   - PostProcessing
-  - 
-  - FirstPersonWeapon
-  - 
-  - 
+  - 1PUI
+  - 1PWeapon
+  - 2PUI
+  - 2PWeapon
   - 
   - 
   - 
